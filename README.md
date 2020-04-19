@@ -3,6 +3,8 @@ VU Amsterdam - Computer Science - Software Testing
 
 ## Setup
 
+Create a new python ```virtualenv``` and execute the following steps:
+
 Run pip:
 
 ```pip install -r requirements_dev.txt```
