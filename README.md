@@ -10,3 +10,7 @@ Run pip:
 Install git pre-commit hook for *black*:
 
 ```pre-commit install```
+
+## Tests
+
+Create tests into the ```tests``` folder and execute tests via running ```pytest``` at the project root folder.
