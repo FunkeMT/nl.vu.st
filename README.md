@@ -1,3 +1,5 @@
+![pytesting](https://github.com/FunkeMT/nl.vu.st/workflows/pytesting/badge.svg)
+
 # nl.vu.st
 VU Amsterdam - Computer Science - Software Testing
 
