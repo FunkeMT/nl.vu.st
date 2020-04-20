@@ -38,5 +38,9 @@ def test_argv_parse_4(capsys):
 
 def test_argv_parse_5(capsys):
     """Correct name argument and printing"""
-    res = argv_parser.parse(["--test"], "--test")
-    assert True == res
+    happend = False
+    try:
+        argv_parser.parse(["--test"], "--test")
+    except ValueError:
+        happend = True
+    assert happend
