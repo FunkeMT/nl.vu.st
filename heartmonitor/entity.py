@@ -60,9 +60,9 @@ class FileRecording(AbstractRecording):
 
 class MockRecording(AbstractRecording):
     def __init__(self, results: List[Measurement]):
-        """"
+        """
         Recording that can be used for testing.
-        """"
+        """
         self.results = results
     
     def get_iterator(self): return iter(self.results)
