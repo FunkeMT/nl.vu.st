@@ -28,3 +28,30 @@ def get_patient_information(argv: List[str]) -> entity.Patient:
     if gender == "female": obj_arguments["gender"] = entity.GenderEnum.FEMALE
 
     return entity.Patient(**obj_arguments)
+
+
+def print_help():
+    """
+    Print help message.
+    """
+    print("Command usage is as follows:")
+    print("heartbeatmonitor.py arguments:")
+    print("")
+    print("Arguments are the following:")
+    print("  --age number\tAge of the patient")
+    print("  --height whole-number\tHeight of the patient")
+    print("  --weight whole-number\tWeight of the patient")
+    print("  --gender text\tGender of the patient. Supported values (capital insensitve): male, female")
+
+def main(argv: List[str]):
+    patient = None # type: entity.Patient
+    try:
+        patient = get_patient_information(argv)
+    except:
+        print_help()
+        sys.exit(1)
+
+        
+
+    
+
