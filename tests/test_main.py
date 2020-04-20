@@ -63,3 +63,18 @@ def test_get_patient_information_7(capsys):
 def test_get_patient_information_8(capsys):
     main.get_patient_information(["--age", "10", "--height", "10", "--weight", "10", "--gender", "female"])
     assert True
+
+
+def test_help(capsys):
+    """Correct name argument and printing"""
+    main.print_help()
+    captured = capsys.readouterr()
+    lines = captured.out.split("\n")
+    assert "Command usage is as follows:" == lines[0]
+    assert "heartbeatmonitor.py arguments:" == lines[1]
+    assert "" == lines[2]
+    assert "Arguments are the following:" == lines[3]
+    assert "  --age number\tAge of the patient" == lines[4]
+    assert "  --height whole-number\tHeight of the patient" == lines[5]
+    assert "  --weight whole-number\tWeight of the patient" == lines[6]
+    assert "  --gender text\tGender of the patient. Supported values (capital insensitve): male, female" == lines[7]
