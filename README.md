@@ -18,3 +18,11 @@ Install git pre-commit hook for *black*:
 ## Tests
 
 Create tests into the ```tests``` folder and execute tests via running ```pytest``` at the project root folder.
+
+### Coverage
+
+To create the test coverage report run
+
+```pytest --cov=./ -v```
+
+You can also find the current master coverage at the GitHub Actions build report at section *Generate coverage report*.
