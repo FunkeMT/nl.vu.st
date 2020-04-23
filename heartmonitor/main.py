@@ -13,12 +13,8 @@ def print_help():
     print("Arguments are the following:")
 
 def main(argv: List[str]):
-    patient = None # type: entity.Patient
-    try:
-        patient = get_patient_information(argv)
-    except:
-        print_help()
-        sys.exit(1)
+    print_help()
+    sys.exit(1)
 
         
 
