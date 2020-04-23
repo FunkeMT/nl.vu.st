@@ -7,7 +7,7 @@ def processor(oxygen, pulse, blood_pressure):
 
 
 def process_oxygen(oxygen):
-    if not oxygen_validity_checker():
+    if not oxygen_validity_checker(oxygen):
         entity.MeasurementStatistics().increment(entity.StatusEnum.MISSING)
         return entity.StatusEnum.MISSING.value
     
@@ -15,8 +15,8 @@ def process_oxygen(oxygen):
     print(oxygen_measure().value)
     return oxygen_measure().value
 
-def oxygen_validity_checker():
-    if str(entity.Measurement.oxygen).isnumeric() and (oxygen < 101 and oxygen >= 0): 
+def oxygen_validity_checker(oxygen):
+    if str(oxygen).isnumeric() and (oxygen < 101 and oxygen >= 0): 
         return True
     else:
         return False
@@ -27,11 +27,8 @@ def oxygen_measure():
     elif entity.Measurement.oxygen > 60: return entity.StatusEnum.MAJOR
     elif entity.Measurement.oxygen <= 60: return entity.StatusEnum.LIFE_THREATENING
 
-
 def process_pulse(pulse):
-    
+    pass
 
 def process_blood_pressure(blood_pressure):
-    
-
-
+    pass
