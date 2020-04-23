@@ -264,7 +264,7 @@ def test_FileRecording16(capsys):
     assert fr == it
 
     counter = 0
-    for x in it:
+    for _ in it:
         counter += 1
     
     assert counter == 0
@@ -473,7 +473,6 @@ def test_FileRecording35(capsys):
 def test_FileRecording36(capsys):
     """Testing FileRecording"""
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
-    happend = False
     m = fr._line_to_measurement(["", "", "", ""])
     assert m.blood_pressure_diastolic is None
     assert m.blood_pressure_systolic is None
