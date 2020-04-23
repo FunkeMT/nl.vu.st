@@ -1,6 +1,6 @@
 """Tests for `heartmonitor.entity` package."""
 import pytest
-from heartmonitor import entity
+import entity
 
 
 def test_StatusEnum(capsys):

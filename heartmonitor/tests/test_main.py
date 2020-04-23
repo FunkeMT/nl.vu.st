@@ -1,6 +1,6 @@
 """Tests for `heartmonitor.entity` package."""
 import pytest
-from heartmonitor import main
+import main
 
 
 def test_get_patient_information(capsys):

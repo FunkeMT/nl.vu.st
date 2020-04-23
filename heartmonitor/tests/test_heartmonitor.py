@@ -1,6 +1,6 @@
 """Tests for `heartmonitor` package."""
 import pytest
-from heartmonitor import heartmonitor
+import heartmonitor
 
 
 def test_convert(capsys):

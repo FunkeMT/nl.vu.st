@@ -1,6 +1,6 @@
 """Tests for `heartmonitor` package."""
 import pytest
-from heartmonitor import argv_parser
+import argv_parser
 
 
 def test_argv_parse_1(capsys):

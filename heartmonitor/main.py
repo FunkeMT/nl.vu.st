@@ -1,4 +1,4 @@
-from heartmonitor import argv_parser, entity
+import argv_parser, entity
 import sys
 from typing import List
 
