@@ -12,23 +12,6 @@ class StatusEnum(Enum):
     MAJOR = "MAJOR"
     LIFE_THREATENING = "LIFE_THREATENING"
 
-class GenderEnum(Enum):
-    """
-    Gender of a patient.
-    """
-    MALE = "MALE"
-    FEMALE = "FEMALE"
-
-class Patient:
-    def __init__(self, age: int, height: int, weight: int, gender: GenderEnum):
-        """
-        Patient information.
-        """
-        self.age = age
-        self.height = height
-        self.weight = weight
-        self.gender = gender
-        
 class Measurement:
     def __init__(self, oxygen: int = None, pulse: int = None,
         blood_pressure_systolic: int = None,
