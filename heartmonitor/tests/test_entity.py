@@ -19,29 +19,6 @@ def test_StatusEnum(capsys):
     assert 5 == len(keys)
 
 
-def test_GenderEnum(capsys):
-    """Testing entity GenderEnum"""
-    data = entity.GenderEnum.__dict__
-    keys = []
-    for k in data:
-        if k.startswith("_"): continue
-        keys.append(k)
-
-    assert "MALE" in keys
-    assert "FEMALE" in keys
-    assert 2 == len(keys)
-
-
-def test_Patient(capsys):
-    """Testing entity Patient"""
-    patient = entity.Patient(25, 180, 75, entity.GenderEnum.MALE)
-
-    assert patient.age == 25
-    assert patient.height == 180
-    assert patient.weight == 75
-    assert patient.gender == entity.GenderEnum.MALE
-
-
 def test_Measurement(capsys):
     """Testing entity Measurement"""
     m = entity.Measurement()
