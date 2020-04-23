@@ -56,13 +56,429 @@ def test_AbstractRecording(capsys):
 
 
 def test_FileRecording(capsys):
-    """Testing entity FileRecording"""
+    """Testing FileRecording"""
+    entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_ok.csv")
+    assert True
+
+
+def test_FileRecording2(capsys):
+    """Testing FileRecording"""
     happend = False
     try:
-        fr = entity.FileRecording("path")
-    except NotImplementedError:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_1.csv")
+    except AssertionError:
         happend = True
     assert happend
+
+
+def test_FileRecording3(capsys):
+    """Testing FileRecording"""
+    happend = False
+    try:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_2.csv")
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording4(capsys):
+    """Testing FileRecording"""
+    happend = False
+    try:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_3.csv")
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording5(capsys):
+    """Testing FileRecording"""
+    happend = False
+    try:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_4.csv")
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording6(capsys):
+    """Testing FileRecording"""
+    happend = False
+    try:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_5.csv")
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording7(capsys):
+    """Testing FileRecording"""
+    happend = False
+    try:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_6.csv")
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording8(capsys):
+    """Testing FileRecording"""
+    happend = False
+    try:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/not_existing.csv")
+    except Exception:
+        happend = True
+    assert happend
+
+
+def test_FileRecording9(capsys):
+    """Testing FileRecording"""
+    happend = False
+    try:
+        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_7.csv")
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording10(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_1.csv")
+    assert True
+
+    it = fr.get_iterator()
+    assert fr == it
+
+    counter = 0
+    for x in it:
+        assert x.oxygen == 1
+        assert x.pulse == 2
+        assert x.blood_pressure_systolic == 3
+        assert x.blood_pressure_diastolic == 4
+        counter += 1
+    
+    assert counter == 1
+
+
+def test_FileRecording11(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_2.csv")
+    assert True
+
+    it = fr.get_iterator()
+    assert fr == it
+
+    counter = 0
+    for x in it:
+        assert x.oxygen == 1
+        assert x.pulse == 2
+        assert x.blood_pressure_systolic == 3
+        assert x.blood_pressure_diastolic is None
+        counter += 1
+    
+    assert counter == 1
+
+
+def test_FileRecording12(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_3.csv")
+    assert True
+
+    it = fr.get_iterator()
+    assert fr == it
+
+    counter = 0
+    for x in it:
+        assert x.oxygen == 1
+        assert x.pulse == 2
+        assert x.blood_pressure_systolic is None
+        assert x.blood_pressure_diastolic == 4
+        counter += 1
+    
+    assert counter == 1
+
+
+def test_FileRecording13(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_4.csv")
+    assert True
+
+    it = fr.get_iterator()
+    assert fr == it
+
+    counter = 0
+    for x in it:
+        assert x.oxygen == 1
+        assert x.pulse is None
+        assert x.blood_pressure_systolic == 3
+        assert x.blood_pressure_diastolic == 4
+        counter += 1
+    
+    assert counter == 1
+
+
+def test_FileRecording14(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_5.csv")
+    assert True
+
+    it = fr.get_iterator()
+    assert fr == it
+
+    counter = 0
+    for x in it:
+        assert x.oxygen is None
+        assert x.pulse == 2
+        assert x.blood_pressure_systolic == 3
+        assert x.blood_pressure_diastolic == 4
+        counter += 1
+    
+    assert counter == 1
+
+
+def test_FileRecording15(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_6.csv")
+    assert True
+
+    it = fr.get_iterator()
+    assert fr == it
+
+    counter = 0
+    for x in it:
+        assert x.oxygen is None
+        assert x.pulse is None
+        assert x.blood_pressure_systolic is None
+        assert x.blood_pressure_diastolic is None
+        counter += 1
+    
+    assert counter == 1
+
+
+def test_FileRecording16(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert True
+
+    it = fr.get_iterator()
+    assert fr == it
+
+    counter = 0
+    for x in it:
+        counter += 1
+    
+    assert counter == 0
+
+
+def test_FileRecording17(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert True
+
+    fp = fr._fpointer
+
+    # Destuct the file recording.
+    fr = None
+
+    assert fp.closed
+
+
+def test_FileRecording18(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert True
+    res = list(fr._get_indices(["a", "b"], ["a", "b"]))
+    assert res[0] == 0
+    assert res[1] == 1
+
+
+def test_FileRecording19(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert True
+    res = list(fr._get_indices(["b", "a"], ["a", "b"]))
+    assert res[0] == 1
+    assert res[1] == 0
+
+
+def test_FileRecording20(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert True
+    res = list(fr._get_indices(["b", "a", "c"], ["a", "b"]))
+    assert res[0] == 1
+    assert res[1] == 0
+
+
+def test_FileRecording21(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert True
+    res = list(fr._get_indices(["b", "a", "c"], ["a", "b", "c"]))
+    assert res[0] == 1
+    assert res[1] == 0
+    assert res[2] == 2
+
+
+def test_FileRecording22(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    fr._validate_heading(["oxygen", "pulse", "blood_pressure_systolic", "blood_pressure_diastolic"])
+    assert True
+
+
+def test_FileRecording23(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._validate_heading([])
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording24(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._validate_heading(["oxygen"])
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording25(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._validate_heading(["a", "pulse", "blood_pressure_systolic", "blood_pressure_diastolic"])
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording26(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._validate_heading(["oxygen", "a", "blood_pressure_systolic", "blood_pressure_diastolic"])
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording27(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._validate_heading(["oxygen", "pulse", "a", "blood_pressure_diastolic"])
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording28(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._validate_heading(["oxygen", "pulse", "blood_pressure_systolic", "a"])
+    except AssertionError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording29(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    m = fr._line_to_measurement(["1", "2", "3", "4"])
+    assert isinstance(m, entity.Measurement)
+    assert m.oxygen == 1
+    assert m.pulse == 2
+    assert m.blood_pressure_systolic == 3
+    assert m.blood_pressure_diastolic == 4
+
+
+def test_FileRecording30(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["1", "2", "3", "a"])
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording31(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["1", "2", "a", "4"])
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording32(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["1", "a", "3", "4"])
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording33(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["a", "2", "3", "4"])
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording34(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["a", "2", "3", "4"])
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording35(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement([])
+    except IndexError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording36(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    m = fr._line_to_measurement(["", "", "", ""])
+    assert m.blood_pressure_diastolic is None
+    assert m.blood_pressure_systolic is None
+    assert m.oxygen is None
+    assert m.pulse is None
 
 
 def test_MockRecording(capsys):
