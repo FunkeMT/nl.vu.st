@@ -22,13 +22,12 @@ def main(argv: List[str]):
         print_help()
         sys.exit(1)
     
-    oxygen_ms = entity.MeasurementStatistics()
+    oxygen_ms = entity.MeasurementStatistics() # add other measurements statistics here
     number_of_measurements = 0
 
     for m in entity.FileRecording(csv_location).get_iterator():
         print(m.__dict__)
-        status = processor.ps(m)
-        oxygen_ms.increment(status['oxygen'])
+        status = processor.processing_agent(m, [oxygen_ms]) # add other measurements statistics here
 
         number_of_measurements += 1
 

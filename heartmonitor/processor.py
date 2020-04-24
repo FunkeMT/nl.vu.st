@@ -1,7 +1,9 @@
 import entity
+from typing import List
 
-def ps(measurement: entity.Measurement):
+def processing_agent(measurement: entity.Measurement, measurement_statistics: List[entity.MeasurementStatistics]):
     oxygen_status = process_oxygen(measurement.oxygen)
+    measurement_statistics[0].increment(oxygen_status)
     #pulse_status = process_pulse(pulse)
     #systolic_status = process_bp_systolic(bp_systolic)
     #diastolic_status = process_bp_diastolic(bp_diastolic)
@@ -9,8 +11,8 @@ def ps(measurement: entity.Measurement):
 
 def process_oxygen(oxygen):
     if not oxygen_validity_checker(oxygen):
-        return entity.StatusEnum.MISSING.value
-    return oxygen_measure(oxygen).value
+        return entity.StatusEnum.MISSING
+    return oxygen_measure(oxygen)
 
 def oxygen_validity_checker(oxygen: int):
     if not str(oxygen).isnumeric():
