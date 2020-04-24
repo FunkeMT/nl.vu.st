@@ -1,4 +1,10 @@
-from entity import StatusEnum, MeasurementResult, Measurement
+from entity import (
+    StatusEnum,
+    MeasurementResult,
+    Measurement,
+    MeasurementStatistics,
+    Statistics,
+)
 from datetime import datetime
 
 
@@ -21,6 +27,28 @@ def get_severity_color(status: StatusEnum):
         StatusEnum.LIFE_THREATENING: colors.RED,
     }
     return switcher.get(status)
+
+
+def print_statistics(s: Statistics):
+    print(f"Pulse statistics: \t\t", end="")
+    print_measurement_statistics(s.pulse)
+    print(f"Oxygen statistics: \t\t", end="")
+    print_measurement_statistics(s.oxygen)
+    print(f"Blood pressure statistics: \t", end="")
+    print_measurement_statistics(s.bloodpressure)
+    print(f"Simulation finished: \t")
+
+
+def print_measurement_statistics(ms: MeasurementStatistics):
+
+    if ms.ok_count < 10:
+        print(
+            f"[{colors.GREEN}OK{colors.ENDC}: {ms.ok_count};\t\t {colors.BLUE}MISSING{colors.ENDC}: {ms.missing_count};\t {colors.YELLOW}MINOR{colors.ENDC}:{ms.minor_count};\t {colors.ORANGE} MAJOR{colors.ENDC}: {ms.major_count};\t {colors.RED} LIFE_THREATENING{colors.ENDC}: {ms.life_threatening_count}\t]"
+        )
+    else:
+        print(
+            f"[{colors.GREEN}OK{colors.ENDC}: {ms.ok_count};\t {colors.BLUE}MISSING{colors.ENDC}: {ms.missing_count};\t {colors.YELLOW}MINOR{colors.ENDC}:{ms.minor_count};\t {colors.ORANGE} MAJOR{colors.ENDC}: {ms.major_count};\t {colors.RED} LIFE_THREATENING{colors.ENDC}: {ms.life_threatening_count}\t]"
+        )
 
 
 def print_status(mr: MeasurementResult):
