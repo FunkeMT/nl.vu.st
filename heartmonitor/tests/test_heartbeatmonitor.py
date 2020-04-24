@@ -1,11 +1,11 @@
 """Tests for `heartmonitor.entity` package."""
 import pytest
-import main
+import heartbeatmonitor
 
 
 def test_help(capsys):
     """Correct name argument and printing"""
-    main.print_help()
+    heartbeatmonitor.print_help()
     captured = capsys.readouterr()
     lines = captured.out.split("\n")
     assert "Command usage is as follows:" == lines[0]
