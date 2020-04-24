@@ -1,7 +1,6 @@
-import argv_parser, entity
+import argv_parser, entity, processor
 import sys
 from typing import List
-
 
 def print_help():
     """
@@ -22,10 +21,22 @@ def main(argv: List[str]):
         print_help()
         sys.exit(1)
 
+    #Create statistics
+    oxygen_ms = entity.MeasurementStatistics()
+    pulse_ms = entity.MeasurementStatistics()
+    blood_pressure_systolic_ms = entity.MeasurementStatistics()
+    blood_pressure_diastolic_ms = entity.MeasurementStatistics()
+    statistics = entity.Statistics(oxygen_ms, pulse_ms, blood_pressure_systolic_ms, blood_pressure_diastolic_ms)
+    
+    number_of_measurements = 0
+
     for m in entity.FileRecording(csv_location).get_iterator():
         print(m.__dict__)
+        measurement_results = processor.processing_agent(m, statistics) # add other measurements statistics here
+        print("RESULT FOR OXYGEN", measurement_results.oxygen_status)
+        number_of_measurements += 1
 
-        
+
 
 
 if __name__ == "__main__":

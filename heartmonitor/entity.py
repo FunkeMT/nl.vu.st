@@ -25,6 +25,19 @@ class Measurement:
         self.pulse = pulse
         self.blood_pressure_systolic = blood_pressure_systolic
         self.blood_pressure_diastolic = blood_pressure_diastolic
+        
+class MeasurementResult():
+    def __init__(self, m : Measurement, oxygen_status: StatusEnum = StatusEnum.MISSING,
+        pulse_status : StatusEnum = StatusEnum.MISSING,
+        blood_pressure_systolic_status : StatusEnum = StatusEnum.MISSING,
+        blood_pressure_diastolic_status : StatusEnum = StatusEnum.MISSING):
+        self.oxygen_status = oxygen_status
+        self.pulse_status = pulse_status
+        self.blood_pressure_systolic_status = blood_pressure_systolic_status
+        self.blood_pressure_diastolic_status = blood_pressure_diastolic_status
+        self.m = m
+
+
     
 class AbstractRecording:
     """
@@ -169,11 +182,13 @@ class MeasurementStatistics:
 
 class Statistics:
     def __init__(self, oxygen: MeasurementStatistics, 
-        pulse: MeasurementStatistics, bloodpressure: MeasurementStatistics):
+        pulse: MeasurementStatistics, blood_pressure_systolic: MeasurementStatistics,
+        blood_pressure_diastolic: MeasurementStatistics):
         """
         Statistics of different sensors.
         """
         self.oxygen = oxygen
         self.pulse = pulse
-        self.bloodpressure = bloodpressure
+        self.blood_pressure_systolic = blood_pressure_systolic
+        self.blood_pressure_diastolic = blood_pressure_diastolic
 

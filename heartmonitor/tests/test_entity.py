@@ -39,6 +39,29 @@ def test_MeasurementValues(capsys):
     assert m.blood_pressure_diastolic == 40
 
 
+def test_MeasurementResult(capsys):
+    """Testing entity MeasurementResult"""
+    m = entity.Measurement()
+    mr = entity.MeasurementResult(m)
+    
+    assert mr.oxygen_status is entity.StatusEnum.MISSING
+    assert mr.pulse_status is entity.StatusEnum.MISSING
+    assert mr.blood_pressure_systolic_status is entity.StatusEnum.MISSING
+    assert mr.blood_pressure_diastolic_status is entity.StatusEnum.MISSING
+    assert mr.m is m
+
+
+def test_MeasurementResultValues(capsys):
+    """Testing entity MeasurementResultValues"""
+    m = entity.Measurement(10, 20, 30, 40)
+    mr = entity.MeasurementResult(m, entity.StatusEnum.MISSING, entity.StatusEnum.OK, entity.StatusEnum.MINOR, entity.StatusEnum.MAJOR) 
+
+    assert mr.oxygen_status == entity.StatusEnum.MISSING
+    assert mr.pulse_status == entity.StatusEnum.OK
+    assert mr.blood_pressure_systolic_status == entity.StatusEnum.MINOR
+    assert mr.blood_pressure_diastolic_status == entity.StatusEnum.MAJOR
+
+
 def test_AbstractRecording(capsys):
     """Testing entity AbstractRecording"""
     ar = entity.AbstractRecording()
@@ -519,9 +542,11 @@ def test_Statistics(capsys):
     """Testing entity Statistics"""
     oxygen = entity.MeasurementStatistics()
     pulse = entity.MeasurementStatistics()
-    bloodpressure = entity.MeasurementStatistics()
+    blood_pressure_systolic = entity.MeasurementStatistics()
+    blood_pressure_diastolic = entity.MeasurementStatistics()
 
-    s = entity.Statistics(oxygen, pulse, bloodpressure) 
+    s = entity.Statistics(oxygen, pulse, blood_pressure_systolic, blood_pressure_diastolic) 
     assert s.oxygen == oxygen
     assert s.pulse == pulse
-    assert s.bloodpressure == bloodpressure
+    assert s.blood_pressure_systolic == blood_pressure_systolic
+    assert s.blood_pressure_diastolic == blood_pressure_diastolic
