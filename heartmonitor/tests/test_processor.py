@@ -9,53 +9,30 @@ m3 = entity.Measurement(36,0,1,44)
 m4 = entity.Measurement(234,36,453,24)
 mock = entity.MockRecording([m1,m2,m3,m4])
 
+def test_oxygen_validation1(capsys):
+    assert not processor.oxygen_validation(-1)
 
-def test_oxygen_processor():
-    pass
+def test_oxygen_validation2(capsys):
+    assert not processor.oxygen_validation(-44)
 
+def test_oxygen_validation3(capsys):
+    assert not processor.oxygen_validation(101)
 
-def test_oxygen_validity_checker1(capsys):
-    if processor.oxygen_validity_checker(-1) == False:
-        assert True
-    else:
-        assert False
+def test_oxygen_validation4(capsys):
+    assert not processor.oxygen_validation(133)
 
-def test_oxygen_validity_checker2(capsys):
-    if processor.oxygen_validity_checker(-44) == False:
-        assert True
-    else:
-        assert False
+def test_oxygen_validation5(capsys):
+    assert not processor.oxygen_validation("133")
 
-def test_oxygen_validity_checker3(capsys):
-    if processor.oxygen_validity_checker(101) == False:
-        assert True
-    else:
-        assert False
-
-def test_oxygen_validity_checker4(capsys):
-    if processor.oxygen_validity_checker(133) == False:
-        assert True
-    else:
-        assert False
-
-def test_oxygen_validity_checker5(capsys):
-    if processor.oxygen_validity_checker("133") == False:
-        assert True
-    else:
-        assert False
-
-def test_oxygen_validity_checker6(capsys):
+def test_oxygen_validation6(capsys):
     assert isinstance(m1.oxygen, Number)
     assert m1.oxygen <= 100 and m1.oxygen >= 0
 
-def test_oxygen_validity_checker7(capsys):
-    try:
-        assert processor.oxygen_validity_checker("asd")
-    except Exception:
-        assert True
+def test_oxygen_validation7(capsys):
+    assert not processor.oxygen_validation("asd")
 
 def test_oxygen_measure(capsys):
-    assert processor.oxygen_measure(95) == entity.StatusEnum.OK
-    assert processor.oxygen_measure(90) == entity.StatusEnum.MINOR
-    assert processor.oxygen_measure(61) == entity.StatusEnum.MAJOR
-    assert processor.oxygen_measure(6) == entity.StatusEnum.LIFE_THREATENING
+    assert processor.oxygen_valuation(95) == entity.StatusEnum.OK
+    assert processor.oxygen_valuation(90) == entity.StatusEnum.MINOR
+    assert processor.oxygen_valuation(61) == entity.StatusEnum.MAJOR
+    assert processor.oxygen_valuation(6) == entity.StatusEnum.LIFE_THREATENING

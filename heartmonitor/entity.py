@@ -182,11 +182,13 @@ class MeasurementStatistics:
 
 class Statistics:
     def __init__(self, oxygen: MeasurementStatistics, 
-        pulse: MeasurementStatistics, bloodpressure: MeasurementStatistics):
+        pulse: MeasurementStatistics, blood_pressure_systolic: MeasurementStatistics,
+        blood_pressure_diastolic: MeasurementStatistics):
         """
         Statistics of different sensors.
         """
         self.oxygen = oxygen
         self.pulse = pulse
-        self.bloodpressure = bloodpressure
+        self.blood_pressure_systolic = blood_pressure_systolic
+        self.blood_pressure_diastolic = blood_pressure_diastolic
 

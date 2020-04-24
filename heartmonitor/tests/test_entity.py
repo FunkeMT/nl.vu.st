@@ -534,7 +534,7 @@ def test_MeasurementStatistics(capsys):
     for k in data:
         if k.startswith("_"): continue
         prev_value = ms.__getattribute__(k.lower() + "_count")
-        ms.increment(data[k].value)
+        ms.increment(data[k])
         assert prev_value == ms.__getattribute__(k.lower() + "_count") - 1
 
 
@@ -542,9 +542,11 @@ def test_Statistics(capsys):
     """Testing entity Statistics"""
     oxygen = entity.MeasurementStatistics()
     pulse = entity.MeasurementStatistics()
-    bloodpressure = entity.MeasurementStatistics()
+    blood_pressure_systolic = entity.MeasurementStatistics()
+    blood_pressure_diastolic = entity.MeasurementStatistics()
 
-    s = entity.Statistics(oxygen, pulse, bloodpressure) 
+    s = entity.Statistics(oxygen, pulse, blood_pressure_systolic, blood_pressure_diastolic) 
     assert s.oxygen == oxygen
     assert s.pulse == pulse
-    assert s.bloodpressure == bloodpressure
+    assert s.blood_pressure_systolic == blood_pressure_systolic
+    assert s.blood_pressure_diastolic == blood_pressure_diastolic

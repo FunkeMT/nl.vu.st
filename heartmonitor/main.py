@@ -2,7 +2,6 @@ import argv_parser, entity, processor
 import sys
 from typing import List
 
-
 def print_help():
     """
     Print help message.
@@ -21,17 +20,23 @@ def main(argv: List[str]):
     except:
         print_help()
         sys.exit(1)
+
+    #Create statistics
+    oxygen_ms = entity.MeasurementStatistics()
+    pulse_ms = entity.MeasurementStatistics()
+    blood_pressure_systolic = entity.MeasurementStatistics()
+    blood_pressure_diastolic = entity.MeasurementStatistics()
+    statistics = entity.Statistics(oxygen_ms, pulse_ms, blood_pressure_systolic, blood_pressure_diastolic)
     
-    oxygen_ms = entity.MeasurementStatistics() # add other measurements statistics here
     number_of_measurements = 0
 
     for m in entity.FileRecording(csv_location).get_iterator():
         print(m.__dict__)
-        status = processor.processing_agent(m, [oxygen_ms]) # add other measurements statistics here
-
+        measurement_results = processor.processing_agent(m, statistics) # add other measurements statistics here
+        print("RESULT FOR OXYGEN", measurement_results.oxygen_status)
         number_of_measurements += 1
 
-    print("OXYGEN", oxygen_ms.__dict__)
+
 
 
 if __name__ == "__main__":
