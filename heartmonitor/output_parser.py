@@ -34,8 +34,10 @@ def print_statistics(s: Statistics):
     print_measurement_statistics(s.pulse)
     print(f"Oxygen statistics: \t\t", end="")
     print_measurement_statistics(s.oxygen)
-    print(f"Blood pressure statistics: \t", end="")
-    print_measurement_statistics(s.bloodpressure)
+    print(f"Blood pressure systolic statistics: \t", end="")
+    print_measurement_statistics(s.blood_pressure_systolic)
+    print(f"Blood pressure diastolic statistics: \t", end="")
+    print_measurement_statistics(s.blood_pressure_diastolic)
     print(f"Simulation finished: \t")
 
 

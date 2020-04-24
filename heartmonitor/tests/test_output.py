@@ -38,8 +38,9 @@ def test_output_parse(capsys):
 def test_print_statistics(capsys):
     oxygen = entity.MeasurementStatistics(1, 2, 3, 4, 5)
     pulse = entity.MeasurementStatistics(10, 20, 30, 40, 50)
-    bp = entity.MeasurementStatistics(100, 200, 300, 400, 500)
-    s = entity.Statistics(oxygen, pulse, bp)
+    bps = entity.MeasurementStatistics(100, 200, 300, 400, 500)
+    bpd = entity.MeasurementStatistics(100, 200, 300, 400, 500)
+    s = entity.Statistics(oxygen, pulse, bps, bpd)
     output_parser.print_statistics(s)
     captured = capsys.readouterr()
     assert "1;" in captured.out
