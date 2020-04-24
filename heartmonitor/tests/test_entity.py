@@ -511,7 +511,7 @@ def test_MeasurementStatistics(capsys):
     for k in data:
         if k.startswith("_"): continue
         prev_value = ms.__getattribute__(k.lower() + "_count")
-        ms.increment(data[k])
+        ms.increment(data[k].value)
         assert prev_value == ms.__getattribute__(k.lower() + "_count") - 1
 
 

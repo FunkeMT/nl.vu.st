@@ -1,4 +1,4 @@
-import argv_parser, entity
+import argv_parser, entity, processor
 import sys
 from typing import List
 
@@ -21,11 +21,18 @@ def main(argv: List[str]):
     except:
         print_help()
         sys.exit(1)
+    
+    oxygen_ms = entity.MeasurementStatistics()
+    number_of_measurements = 0
 
     for m in entity.FileRecording(csv_location).get_iterator():
         print(m.__dict__)
+        status = processor.ps(m)
+        oxygen_ms.increment(status['oxygen'])
 
-        
+        number_of_measurements += 1
+
+    print("OXYGEN", oxygen_ms.__dict__)
 
 
 if __name__ == "__main__":

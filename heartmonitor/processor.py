@@ -1,34 +1,40 @@
 import entity
 
-def processor(oxygen, pulse, blood_pressure):
-    process_oxygen(oxygen)
-    process_pulse(pulse)
-    process_blood_pressure(blood_pressure)
-
+def ps(measurement: entity.Measurement):
+    oxygen_status = process_oxygen(measurement.oxygen)
+    #pulse_status = process_pulse(pulse)
+    #systolic_status = process_bp_systolic(bp_systolic)
+    #diastolic_status = process_bp_diastolic(bp_diastolic)
+    return {"oxygen": oxygen_status} # add the last statusses when implemented
 
 def process_oxygen(oxygen):
     if not oxygen_validity_checker(oxygen):
-        entity.MeasurementStatistics().increment(entity.StatusEnum.MISSING)
         return entity.StatusEnum.MISSING.value
-    
-    entity.MeasurementStatistics().increment(oxygen_measure())
-    print(oxygen_measure().value)
-    return oxygen_measure().value
+    return oxygen_measure(oxygen).value
 
-def oxygen_validity_checker(oxygen):
-    if str(oxygen).isnumeric() and (oxygen < 101 and oxygen >= 0): 
+def oxygen_validity_checker(oxygen: int):
+    if not str(oxygen).isnumeric():
+    	return False
+
+    if (int(oxygen) < 101 and int(oxygen) >= 0): 
         return True
     else:
         return False
 
-def oxygen_measure():
-    if entity.Measurement.oxygen >= 95: return entity.StatusEnum.OK
-    elif entity.Measurement.oxygen >= 90: return entity.StatusEnum.MINOR
-    elif entity.Measurement.oxygen > 60: return entity.StatusEnum.MAJOR
-    elif entity.Measurement.oxygen <= 60: return entity.StatusEnum.LIFE_THREATENING
+def oxygen_measure(oxygen):
+    if oxygen >= 95: return entity.StatusEnum.OK
+    elif oxygen >= 90: return entity.StatusEnum.MINOR
+    elif oxygen > 60: return entity.StatusEnum.MAJOR
+    elif oxygen <= 60: return entity.StatusEnum.LIFE_THREATENING
 
 def process_pulse(pulse):
+	# To be implemented
     pass
 
-def process_blood_pressure(blood_pressure):
+def process_bp_systolic(bp_systolic):
+	# To be implemented
+    pass
+
+def process_bp_diastolic(bp_diastolic):
+	# To be implemented
     pass

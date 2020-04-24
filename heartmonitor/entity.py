@@ -156,15 +156,15 @@ class MeasurementStatistics:
         """
         Increment a measurement status.
         """
-        if status == StatusEnum.OK:
+        if status == StatusEnum.OK.value:
             self.ok_count += 1
-        elif status == StatusEnum.MISSING:
+        elif status == StatusEnum.MISSING.value:
             self.missing_count += 1
-        elif status == StatusEnum.MINOR:
+        elif status == StatusEnum.MINOR.value:
             self.minor_count += 1
-        elif status == StatusEnum.MAJOR:
+        elif status == StatusEnum.MAJOR.value:
             self.major_count += 1
-        elif status == StatusEnum.LIFE_THREATENING:
+        elif status == StatusEnum.LIFE_THREATENING.value:
             self.life_threatening_count += 1
 
 class Statistics:

@@ -15,46 +15,47 @@ def test_oxygen_processor():
 
 
 def test_oxygen_validity_checker1(capsys):
-	happend = False
-	try:
-		processor.oxygen_validity_checker(-1)
-	except Exception:
-		happend = True
-	assert happend
+    if processor.oxygen_validity_checker(-1) == False:
+        assert True
+    else:
+        assert False
 
 def test_oxygen_validity_checker2(capsys):
-	happend = False
-	try:
-		processor.oxygen_validity_checker(-44)
-	except Exception:
-		happend = True
-	assert happend
+    if processor.oxygen_validity_checker(-44) == False:
+        assert True
+    else:
+        assert False
 
 def test_oxygen_validity_checker3(capsys):
-	happend = False
-	try:
-		processor.oxygen_validity_checker(101)
-	except Exception:
-		happend = True
-	assert happend
+    if processor.oxygen_validity_checker(101) == False:
+        assert True
+    else:
+        assert False
 
 def test_oxygen_validity_checker4(capsys):
-	happend = False
-	try:
-		processor.oxygen_validity_checker(133)
-	except Exception:
-		happend = True
-	assert happend
+    if processor.oxygen_validity_checker(133) == False:
+        assert True
+    else:
+        assert False
 
 def test_oxygen_validity_checker5(capsys):
-	happend = False
-	try:
-		processor.oxygen_validity_checker("133")
-	except Exception:
-		happend = True
-	assert happend
+    if processor.oxygen_validity_checker("133") == False:
+        assert True
+    else:
+        assert False
 
-def test_oxygen_validity_checker5(capsys):
+def test_oxygen_validity_checker6(capsys):
     assert isinstance(m1.oxygen, Number)
     assert m1.oxygen <= 100 and m1.oxygen >= 0
 
+def test_oxygen_validity_checker7(capsys):
+    try:
+        assert processor.oxygen_validity_checker("asd")
+    except Exception:
+        assert True
+
+def test_oxygen_measure(capsys):
+    assert processor.oxygen_measure(95) == entity.StatusEnum.OK
+    assert processor.oxygen_measure(90) == entity.StatusEnum.MINOR
+    assert processor.oxygen_measure(61) == entity.StatusEnum.MAJOR
+    assert processor.oxygen_measure(6) == entity.StatusEnum.LIFE_THREATENING
