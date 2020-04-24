@@ -24,9 +24,9 @@ def main(argv: List[str]):
     #Create statistics
     oxygen_ms = entity.MeasurementStatistics()
     pulse_ms = entity.MeasurementStatistics()
-    blood_pressure_systolic = entity.MeasurementStatistics()
-    blood_pressure_diastolic = entity.MeasurementStatistics()
-    statistics = entity.Statistics(oxygen_ms, pulse_ms, blood_pressure_systolic, blood_pressure_diastolic)
+    blood_pressure_systolic_ms = entity.MeasurementStatistics()
+    blood_pressure_diastolic_ms = entity.MeasurementStatistics()
+    statistics = entity.Statistics(oxygen_ms, pulse_ms, blood_pressure_systolic_ms, blood_pressure_diastolic_ms)
     
     number_of_measurements = 0
 
