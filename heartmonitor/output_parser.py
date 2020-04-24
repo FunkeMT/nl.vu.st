@@ -60,10 +60,3 @@ def print_status(mr: MeasurementResult):
             post_status,
         )
     )
-
-
-m = Measurement(90, 90, 90, 90)
-mr = MeasurementResult(
-    m, StatusEnum.MINOR, StatusEnum.MAJOR, StatusEnum.LIFE_THREATENING, StatusEnum.OK
-)
-print_status(mr)
