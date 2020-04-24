@@ -26,3 +26,12 @@ To create the test coverage report run
 ```pytest --cov=./ -v```
 
 You can also find the current master coverage at the GitHub Actions build report at section *Generate coverage report*.
+
+### Assignment
+
+| Student | Gets Review From |
+|---------|------------------|
+| Sven    | Wouter           |
+| Pjotr   | Markus           |
+| Wouter  | Pjotr            |
+| Markus  | Sven             |

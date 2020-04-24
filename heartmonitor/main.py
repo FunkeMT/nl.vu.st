@@ -11,14 +11,22 @@ def print_help():
     print("heartbeatmonitor.py arguments:")
     print("")
     print("Arguments are the following:")
+    print("  --path str\tLocation of the CSV file")
+
 
 def main(argv: List[str]):
-    print_help()
-    sys.exit(1)
+    csv_location = None # type: str
+    try:
+        csv_location = argv_parser.parse(argv, "--path")
+    except:
+        print_help()
+        sys.exit(1)
+
+    for m in entity.FileRecording(csv_location).get_iterator():
+        print(m.__dict__)
 
         
 
-    
 
 if __name__ == "__main__":
     main(sys.argv)
