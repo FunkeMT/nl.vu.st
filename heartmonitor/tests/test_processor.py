@@ -38,6 +38,366 @@ def test_oxygen_validation7(capsys):
     assert not processor.oxygen_validation("asd")
 
 
+def test_oxygen_analysis1(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+
+    assert entity.StatusEnum.MISSING == processor.oxygen_analysis(-1, stats)
+
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 1
+
+
+def test_oxygen_analysis2(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+
+    assert entity.StatusEnum.MISSING == processor.oxygen_analysis(-44, stats)
+
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 1
+
+
+def test_oxygen_analysis3(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+
+    assert entity.StatusEnum.MISSING == processor.oxygen_analysis(101, stats)
+
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 1
+
+
+def test_oxygen_analysis4(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+
+    assert entity.StatusEnum.MISSING == processor.oxygen_analysis(133, stats)
+
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 1
+
+
+def test_oxygen_analysis5(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+
+    assert entity.StatusEnum.MISSING == processor.oxygen_analysis("133", stats)
+
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 1
+
+
+def test_oxygen_analysis6(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+
+    assert entity.StatusEnum.MISSING == processor.oxygen_analysis("asd", stats)
+
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 1
+
+
+def test_oxygen_analysis7(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(95, stats) == entity.StatusEnum.OK
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 1
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis8(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(90, stats) == entity.StatusEnum.MINOR
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 1
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis9(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(61, stats) == entity.StatusEnum.MAJOR
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 1
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis10(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(6, stats) == entity.StatusEnum.LIFE_THREATENING
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 1
+
+
+def test_oxygen_analysis11(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(-1, stats) == entity.StatusEnum.MISSING
+
+    assert stats.missing_count == 1
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis12(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(101, stats) == entity.StatusEnum.MISSING
+
+    assert stats.missing_count == 1
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis13(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(0, stats) == entity.StatusEnum.LIFE_THREATENING
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 1
+
+
+def test_oxygen_analysis14(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(60, stats) == entity.StatusEnum.LIFE_THREATENING
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 1
+
+
+def test_oxygen_analysis15(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(61, stats) == entity.StatusEnum.MAJOR
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 1
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis16(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(89, stats) == entity.StatusEnum.MAJOR
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 1
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis17(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(90, stats) == entity.StatusEnum.MINOR
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 1
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis18(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(94, stats) == entity.StatusEnum.MINOR
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 0
+    assert stats.minor_count == 1
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis19(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(95, stats) == entity.StatusEnum.OK
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 1
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
+def test_oxygen_analysis20(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.ok_count == 0
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+    assert stats.missing_count == 0
+    
+    assert processor.oxygen_analysis(100, stats) == entity.StatusEnum.OK
+
+    assert stats.missing_count == 0
+    assert stats.ok_count == 1
+    assert stats.minor_count == 0
+    assert stats.major_count == 0
+    assert stats.life_threatening_count == 0
+
+
 def test_pulse_analysis_determine1(capsys):
     """Testing test_pulse_analysis_determine"""
     assert processor._pulse_analysis_determine(1) == entity.StatusEnum.LIFE_THREATENING

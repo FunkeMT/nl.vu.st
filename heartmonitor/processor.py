@@ -34,10 +34,10 @@ def oxygen_analysis(oxygen: int,
     :param: measurement_statistics The statistics to update with the analysis.
     :return The result of the analysis.
     """
-    if not oxygen_validation(oxygen):
-    	return entity.StatusEnum.MISSING
-
-    status = oxygen_valuation(oxygen)
+    status = entity.StatusEnum.MISSING
+    if oxygen_validation(oxygen):
+        status = oxygen_valuation(oxygen)
+    	
     measurement_statistics.increment(status) 
     return status
 
