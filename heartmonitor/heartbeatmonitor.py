@@ -1,6 +1,21 @@
 import argv_parser, entity, processor
 import sys
 from typing import List
+import time
+
+MEASUREMENT_INTERVAL_IN_MS = 500
+MILISECONDS_IN_SECOND = 1000
+
+
+def wait_on_new_measurement():
+    """
+    Wait until new measurement has been made.
+
+    :raises: KeyboardInterrupt When some tried to stop the application.
+    :raises: Exception When a thread error occured.
+    """
+    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILISECONDS_IN_SECOND)
+
 
 def print_help():
     """
@@ -35,6 +50,7 @@ def main(argv: List[str]):
         measurement_results = processor.processing_agent(m, statistics) # add other measurements statistics here
         print("RESULT FOR OXYGEN", measurement_results.oxygen_status)
         number_of_measurements += 1
+        wait_on_new_measurement()
 
 
 
