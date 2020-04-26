@@ -1,4 +1,4 @@
-import argv_parser, entity, processor
+import argv_parser, entity, processor, output_parser
 import sys
 from typing import List
 import time
@@ -15,7 +15,6 @@ def wait_on_new_measurement():
     :raises: Exception When a thread error occured.
     """
     time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILLISECONDS_IN_SECOND)
-
 
 
 def print_help():
@@ -49,13 +48,13 @@ def main(argv: List[str]):
     number_of_measurements = 0
 
     for m in entity.FileRecording(csv_location).get_iterator():
-        print(m.__dict__)
         measurement_results = processor.processing_agent(
             m, statistics
         )  # add other measurements statistics here
-        print("RESULT FOR OXYGEN", measurement_results.oxygen_status)
-        print("RESULT FOR SYSBP", measurement_results.blood_pressure_systolic_status)
-        print("RESULT FOR DIABP", measurement_results.blood_pressure_diastolic_status)
+        output_parser.print_status(measurement_results)
+        # print("RESULT FOR OXYGEN", measurement_results.oxygen_status)
+        # print("RESULT FOR SYSBP", measurement_results.blood_pressure_systolic_status)
+        # print("RESULT FOR DIABP", measurement_results.blood_pressure_diastolic_status)
         number_of_measurements += 1
         wait_on_new_measurement()
 
