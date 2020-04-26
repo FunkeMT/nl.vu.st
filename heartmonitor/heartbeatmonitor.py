@@ -1,6 +1,21 @@
 import argv_parser, entity, processor
 import sys
 from typing import List
+import time
+
+MEASUREMENT_INTERVAL_IN_MS = 500
+MILLISECONDS_IN_SECOND = 1000
+
+
+def wait_on_new_measurement():
+    """
+    Wait until new measurement has been made.
+
+    :raises: KeyboardInterrupt When some tried to stop the application.
+    :raises: Exception When a thread error occured.
+    """
+    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILLISECONDS_IN_SECOND)
+
 
 
 def print_help():
@@ -42,6 +57,7 @@ def main(argv: List[str]):
         print("RESULT FOR SYSBP", measurement_results.blood_pressure_systolic_status)
         print("RESULT FOR DIABP", measurement_results.blood_pressure_diastolic_status)
         number_of_measurements += 1
+        wait_on_new_measurement()
 
 
 if __name__ == "__main__":
