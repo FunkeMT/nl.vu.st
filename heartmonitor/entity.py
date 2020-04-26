@@ -8,16 +8,22 @@ class StatusEnum(Enum):
     """
     Status of a measurement.
     """
+
     OK = "OK"
     MISSING = "MISSING"
     MINOR = "MINOR"
     MAJOR = "MAJOR"
     LIFE_THREATENING = "LIFE_THREATENING"
 
+
 class Measurement:
-    def __init__(self, oxygen: int = None, pulse: int = None,
+    def __init__(
+        self,
+        oxygen: int = None,
+        pulse: int = None,
         blood_pressure_systolic: int = None,
-        blood_pressure_diastolic: int = None):
+        blood_pressure_diastolic: int = None,
+    ):
         """
         Snap shot of measurement information. 
         """
@@ -25,12 +31,22 @@ class Measurement:
         self.pulse = pulse
         self.blood_pressure_systolic = blood_pressure_systolic
         self.blood_pressure_diastolic = blood_pressure_diastolic
-        
-class MeasurementResult():
-    def __init__(self, m : Measurement, oxygen_status: StatusEnum = StatusEnum.MISSING,
-        pulse_status : StatusEnum = StatusEnum.MISSING,
-        blood_pressure_systolic_status : StatusEnum = StatusEnum.MISSING,
-        blood_pressure_diastolic_status : StatusEnum = StatusEnum.MISSING):
+
+
+class MeasurementResult:
+    def __init__(
+        self,
+        m: Measurement,
+        oxygen_status: StatusEnum = StatusEnum.MISSING,
+        pulse_status: StatusEnum = StatusEnum.MISSING,
+        blood_pressure_systolic_status: StatusEnum = StatusEnum.MISSING,
+        blood_pressure_diastolic_status: StatusEnum = StatusEnum.MISSING,
+    ):
+        """
+        Object that holds results of processing as well as original measurement
+
+        """
+
         self.oxygen_status = oxygen_status
         self.pulse_status = pulse_status
         self.blood_pressure_systolic_status = blood_pressure_systolic_status
@@ -38,14 +54,20 @@ class MeasurementResult():
         self.m = m
 
 
-    
 class AbstractRecording:
     """
     Abstract recording.
     """
-    def get_iterator(self): return iter(self)
-    def __iter__(self): return self
-    def __next__(self): raise StopIteration
+
+    def get_iterator(self):
+        return iter(self)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        raise StopIteration
+
 
 class FileRecording(AbstractRecording):
     def __init__(self, filepath: str):
@@ -64,10 +86,15 @@ class FileRecording(AbstractRecording):
         parts = next(csv.reader([self._fpointer.readline()]))
         self._validate_heading(parts)
 
-        self.index_oxygen, self.index_pulse, self.index_systolic, \
-            self.index_diastolic = self._get_indices(parts, ["oxygen", "pulse",
-                "blood_pressure_systolic", "blood_pressure_diastolic"])
-
+        (
+            self.index_oxygen,
+            self.index_pulse,
+            self.index_systolic,
+            self.index_diastolic,
+        ) = self._get_indices(
+            parts,
+            ["oxygen", "pulse", "blood_pressure_systolic", "blood_pressure_diastolic"],
+        )
 
     def _get_indices(self, parts: List[str], keys: List[str]):
         """
@@ -77,8 +104,8 @@ class FileRecording(AbstractRecording):
         :param: keys Keys to search for.
         :return: Yields in order the index for each key that was given.
         """
-        for key in keys: yield parts.index(key)
-
+        for key in keys:
+            yield parts.index(key)
 
     def _validate_heading(self, heading_parts: List[str]):
         """
@@ -93,7 +120,6 @@ class FileRecording(AbstractRecording):
         assert "blood_pressure_systolic" in heading_parts
         assert "blood_pressure_diastolic" in heading_parts
 
-
     def _line_to_measurement(self, line: List[str]) -> Measurement:
         """
         Convert a parsed CSV line to a measurement object.
@@ -102,17 +128,18 @@ class FileRecording(AbstractRecording):
         :return: Line that has been parsed to a measurement object. 
         """
         res = Measurement()
-        if line[self.index_oxygen]: res.oxygen = int(line[self.index_oxygen])
-        if line[self.index_pulse]: res.pulse = int(line[self.index_pulse])
+        if line[self.index_oxygen]:
+            res.oxygen = int(line[self.index_oxygen])
+        if line[self.index_pulse]:
+            res.pulse = int(line[self.index_pulse])
 
-        if line[self.index_systolic]: 
+        if line[self.index_systolic]:
             res.blood_pressure_systolic = int(line[self.index_systolic])
 
         if line[self.index_diastolic]:
             res.blood_pressure_diastolic = int(line[self.index_diastolic])
 
         return res
-
 
     def __next__(self) -> Measurement:
         """
@@ -125,11 +152,11 @@ class FileRecording(AbstractRecording):
         try:
             line = self._fpointer.readline()
             parts = next(csv.reader([line]))
-            if not parts: raise StopIteration
+            if not parts:
+                raise StopIteration
             return self._line_to_measurement(parts)
         except StopIteration:
             raise StopIteration
-
 
     def __del__(self):
         """
@@ -148,14 +175,23 @@ class MockRecording(AbstractRecording):
         Recording that can be used for testing.
         """
         self.results = results
-    
-    def get_iterator(self): return iter(self.results)
-    def __iter__(self): return self.results
+
+    def get_iterator(self):
+        return iter(self.results)
+
+    def __iter__(self):
+        return self.results
+
 
 class MeasurementStatistics:
-    def __init__(self, ok_count: int = 0, missing_count: int = 0, 
-        minor_count: int = 0, major_count: int = 0, 
-        life_threatening_count: int = 0):
+    def __init__(
+        self,
+        ok_count: int = 0,
+        missing_count: int = 0,
+        minor_count: int = 0,
+        major_count: int = 0,
+        life_threatening_count: int = 0,
+    ):
         """
         Measurement statistics of a single sensor.
         """
@@ -180,10 +216,15 @@ class MeasurementStatistics:
         elif status == StatusEnum.LIFE_THREATENING:
             self.life_threatening_count += 1
 
+
 class Statistics:
-    def __init__(self, oxygen: MeasurementStatistics, 
-        pulse: MeasurementStatistics, blood_pressure_systolic: MeasurementStatistics,
-        blood_pressure_diastolic: MeasurementStatistics):
+    def __init__(
+        self,
+        oxygen: MeasurementStatistics,
+        pulse: MeasurementStatistics,
+        blood_pressure_systolic: MeasurementStatistics,
+        blood_pressure_diastolic: MeasurementStatistics,
+    ):
         """
         Statistics of different sensors.
         """
@@ -191,4 +232,3 @@ class Statistics:
         self.pulse = pulse
         self.blood_pressure_systolic = blood_pressure_systolic
         self.blood_pressure_diastolic = blood_pressure_diastolic
-

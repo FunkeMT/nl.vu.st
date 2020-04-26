@@ -19,6 +19,12 @@ class colors:
 
 
 def get_severity_color(status: StatusEnum):
+    """
+    Returns color according to severity of the threat
+    
+    :param: status: Status of a value
+    :return: color according to status
+    """
     switcher = {
         StatusEnum.OK: colors.GREEN,
         StatusEnum.MISSING: colors.BLUE,
@@ -30,6 +36,12 @@ def get_severity_color(status: StatusEnum):
 
 
 def print_statistics(s: Statistics):
+    """
+    Prints the statistics with color for status
+    
+    :param: s: statistics object
+
+    """
     print(f"Pulse statistics: \t\t", end="")
     print_measurement_statistics(s.pulse)
     print(f"Oxygen statistics: \t\t", end="")
@@ -42,6 +54,12 @@ def print_statistics(s: Statistics):
 
 
 def print_measurement_statistics(ms: MeasurementStatistics):
+    """
+    Prints a MeasuremenStatistics object with color for status
+    
+    :param: ms: MeasurementStatistics object
+
+    """
 
     if ms.ok_count < 10:
         print(
@@ -54,6 +72,12 @@ def print_measurement_statistics(ms: MeasurementStatistics):
 
 
 def print_status(mr: MeasurementResult):
+    """
+    Prints measurement results
+
+    "param" mr: MeasurementResult object
+
+    """
     post_status = colors.ENDC
 
     print(f"[%s]" % (datetime.now().strftime("%d-%m-%y %H:%M:%S")), end=" ")
