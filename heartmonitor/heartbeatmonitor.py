@@ -4,7 +4,7 @@ from typing import List
 import time
 
 MEASUREMENT_INTERVAL_IN_MS = 500
-MILISECONDS_IN_SECOND = 1000
+MILLISECONDS_IN_SECOND = 1000
 
 
 def wait_on_new_measurement():
@@ -14,7 +14,7 @@ def wait_on_new_measurement():
     :raises: KeyboardInterrupt When some tried to stop the application.
     :raises: Exception When a thread error occured.
     """
-    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILISECONDS_IN_SECOND)
+    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILLISECONDS_IN_SECOND)
 
 
 def print_help():
