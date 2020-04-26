@@ -1,4 +1,4 @@
-import argv_parser, entity, processor
+import argv_parser, entity, processor, output_parser
 import sys
 from typing import List
 import time
@@ -29,30 +29,31 @@ def print_help():
 
 
 def main(argv: List[str]):
-    csv_location = None # type: str
+    csv_location = None  # type: str
     try:
         csv_location = argv_parser.parse(argv, "--path")
     except:
         print_help()
         sys.exit(1)
 
-    #Create statistics
+    # Create statistics
     oxygen_ms = entity.MeasurementStatistics()
     pulse_ms = entity.MeasurementStatistics()
     blood_pressure_systolic_ms = entity.MeasurementStatistics()
     blood_pressure_diastolic_ms = entity.MeasurementStatistics()
-    statistics = entity.Statistics(oxygen_ms, pulse_ms, blood_pressure_systolic_ms, blood_pressure_diastolic_ms)
-    
+    statistics = entity.Statistics(
+        oxygen_ms, pulse_ms, blood_pressure_systolic_ms, blood_pressure_diastolic_ms
+    )
+
     number_of_measurements = 0
 
     for m in entity.FileRecording(csv_location).get_iterator():
-        print(m.__dict__)
-        measurement_results = processor.processing_agent(m, statistics) # add other measurements statistics here
-        print("RESULT FOR OXYGEN", measurement_results.oxygen_status)
+        measurement_results = processor.processing_agent(
+            m, statistics
+        )  # add other measurements statistics here
+        output_parser.print_status(measurement_results)
         number_of_measurements += 1
         wait_on_new_measurement()
-
-
 
 
 if __name__ == "__main__":

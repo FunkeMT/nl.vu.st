@@ -3,11 +3,12 @@ import pytest
 import processor, entity
 from numbers import Number
 
-m1 = entity.Measurement(90,50,30,40)
-m2 = entity.Measurement(22,88,44,66)
-m3 = entity.Measurement(36,0,1,44)
-m4 = entity.Measurement(234,36,453,24)
-mock = entity.MockRecording([m1,m2,m3,m4])
+m1 = entity.Measurement(90, 50, 30, 40)
+m2 = entity.Measurement(22, 88, 44, 66)
+m3 = entity.Measurement(36, 0, 1, 44)
+m4 = entity.Measurement(234, 36, 453, 24)
+mock = entity.MockRecording([m1, m2, m3, m4])
+
 
 def test_oxygen_validation1(capsys):
     assert not processor.oxygen_validation(-1)
@@ -154,7 +155,7 @@ def test_oxygen_analysis7(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(95, stats) == entity.StatusEnum.OK
 
     assert stats.missing_count == 0
@@ -172,7 +173,7 @@ def test_oxygen_analysis8(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(90, stats) == entity.StatusEnum.MINOR
 
     assert stats.missing_count == 0
@@ -190,7 +191,7 @@ def test_oxygen_analysis9(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(61, stats) == entity.StatusEnum.MAJOR
 
     assert stats.missing_count == 0
@@ -208,7 +209,7 @@ def test_oxygen_analysis10(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(6, stats) == entity.StatusEnum.LIFE_THREATENING
 
     assert stats.missing_count == 0
@@ -226,7 +227,7 @@ def test_oxygen_analysis11(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(-1, stats) == entity.StatusEnum.MISSING
 
     assert stats.missing_count == 1
@@ -244,7 +245,7 @@ def test_oxygen_analysis12(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(101, stats) == entity.StatusEnum.MISSING
 
     assert stats.missing_count == 1
@@ -262,7 +263,7 @@ def test_oxygen_analysis13(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(0, stats) == entity.StatusEnum.LIFE_THREATENING
 
     assert stats.missing_count == 0
@@ -280,7 +281,7 @@ def test_oxygen_analysis14(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(60, stats) == entity.StatusEnum.LIFE_THREATENING
 
     assert stats.missing_count == 0
@@ -298,7 +299,7 @@ def test_oxygen_analysis15(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(61, stats) == entity.StatusEnum.MAJOR
 
     assert stats.missing_count == 0
@@ -316,7 +317,7 @@ def test_oxygen_analysis16(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(89, stats) == entity.StatusEnum.MAJOR
 
     assert stats.missing_count == 0
@@ -334,7 +335,7 @@ def test_oxygen_analysis17(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(90, stats) == entity.StatusEnum.MINOR
 
     assert stats.missing_count == 0
@@ -352,7 +353,7 @@ def test_oxygen_analysis18(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(94, stats) == entity.StatusEnum.MINOR
 
     assert stats.missing_count == 0
@@ -370,7 +371,7 @@ def test_oxygen_analysis19(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(95, stats) == entity.StatusEnum.OK
 
     assert stats.missing_count == 0
@@ -388,7 +389,7 @@ def test_oxygen_analysis20(capsys):
     assert stats.major_count == 0
     assert stats.life_threatening_count == 0
     assert stats.missing_count == 0
-    
+
     assert processor.oxygen_analysis(100, stats) == entity.StatusEnum.OK
 
     assert stats.missing_count == 0
@@ -460,7 +461,9 @@ def test_pulse_analysis_determine12(capsys):
 
 def test_pulse_analysis_determine13(capsys):
     """Testing test_pulse_analysis_determine"""
-    assert processor._pulse_analysis_determine(161) == entity.StatusEnum.LIFE_THREATENING
+    assert (
+        processor._pulse_analysis_determine(161) == entity.StatusEnum.LIFE_THREATENING
+    )
 
 
 def test_pulse_analysis_determine14(capsys):
@@ -499,6 +502,7 @@ def test_pulse_analysis2(capsys):
 
     assert happend
 
+
 def test_pulse_analysis11(capsys):
     """Testing test_pulse_analysis_determine"""
     stats = entity.MeasurementStatistics()
@@ -513,7 +517,7 @@ def test_pulse_analysis12(capsys):
     try:
         stats = entity.MeasurementStatistics()
         processor.pulse_analysis(-1, stats)
-    except TypeError: 
+    except TypeError:
         happend = True
     assert happend
 
@@ -646,3 +650,285 @@ def test_oxygen_measure(capsys):
     assert processor.oxygen_valuation(90) == entity.StatusEnum.MINOR
     assert processor.oxygen_valuation(61) == entity.StatusEnum.MAJOR
     assert processor.oxygen_valuation(6) == entity.StatusEnum.LIFE_THREATENING
+
+
+def test_systolic_blood_validation(capsys):
+    assert not processor.blood_pressure_systolic_validation(-1)
+
+
+def test_systolic_blood_validation2(capsys):
+    assert not processor.blood_pressure_systolic_validation(-44)
+
+
+def test_systolic_blood_validation3(capsys):
+    assert not processor.blood_pressure_systolic_validation(251)
+
+
+def test_systolic_blood_validation4(capsys):
+    assert not processor.blood_pressure_systolic_validation(260)
+
+
+def test_systolic_blood_validation5(capsys):
+    assert not processor.blood_pressure_systolic_validation("260")
+
+
+def test_systolic_blood_validation6(capsys):
+    assert isinstance(m1.blood_pressure_systolic, Number)
+    assert m1.blood_pressure_systolic <= 250 and m1.blood_pressure_systolic >= 0
+
+
+def test_systolic_blood_validation7(capsys):
+    assert not processor.blood_pressure_systolic_validation("asd")
+
+
+def test_systolic_blood_analysis1(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(-1, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_systolic_blood_analysis2(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(-44, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_systolic_blood_analysis3(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(251, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_systolic_blood_analysis4(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(260, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_systolic_blood_analysis5(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis("260", stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_systolic_blood_analysis6(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis("asd", stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_systolic_blood_analysis7(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(120, stats)
+    assert stats.ok_count == 1
+    assert res == entity.StatusEnum.OK
+
+
+def test_systolic_blood_analysis8(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(80, stats)
+    assert stats.minor_count == 1
+    assert res == entity.StatusEnum.MINOR
+
+
+def test_systolic_blood_analysis9(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(135, stats)
+    assert stats.minor_count == 1
+    assert res == entity.StatusEnum.MINOR
+
+
+def test_systolic_blood_analysis9(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(135, stats)
+    assert stats.minor_count == 1
+    assert res == entity.StatusEnum.MINOR
+
+
+def test_systolic_blood_analysis10(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(140, stats)
+    assert stats.major_count == 1
+    assert res == entity.StatusEnum.MAJOR
+
+
+def test_systolic_blood_analysis11(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(50, stats)
+    assert stats.major_count == 1
+    assert res == entity.StatusEnum.MAJOR
+
+
+def test_systolic_blood_analysis12(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(30, stats)
+    assert stats.life_threatening_count == 1
+    assert res == entity.StatusEnum.LIFE_THREATENING
+
+
+def test_systolic_blood_analysis13(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_systolic_analysis(190, stats)
+    assert stats.life_threatening_count == 1
+    assert res == entity.StatusEnum.LIFE_THREATENING
+
+
+def test_diastolic_blood_validation(capsys):
+    assert not processor.blood_pressure_diastolic_validation(-1)
+
+
+def test_diastolic_blood_validation2(capsys):
+    assert not processor.blood_pressure_diastolic_validation(-44)
+
+
+def test_diastolic_blood_validation3(capsys):
+    assert not processor.blood_pressure_diastolic_validation(141)
+
+
+def test_diastolic_blood_validation4(capsys):
+    assert not processor.blood_pressure_diastolic_validation(160)
+
+
+def test_diastolic_blood_validation5(capsys):
+    assert not processor.blood_pressure_diastolic_validation("160")
+
+
+def test_diastolic_blood_validation6(capsys):
+    assert isinstance(m1.blood_pressure_diastolic, Number)
+    assert m1.blood_pressure_diastolic <= 140 and m1.blood_pressure_systolic >= 0
+
+
+def test_diastolic_blood_validation7(capsys):
+    assert not processor.blood_pressure_diastolic_validation("asd")
+
+
+def test_diastolic_blood_analysis1(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(-1, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_diastolic_blood_analysis2(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(-44, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_diastolic_blood_analysis3(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(141, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_diastolic_blood_analysis4(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(160, stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_diastolic_blood_analysis5(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis("160", stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_diastolic_blood_analysis6(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis("asd", stats)
+    assert stats.missing_count == 1
+    assert res == entity.StatusEnum.MISSING
+
+
+def test_diastolic_blood_analysis7(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(80, stats)
+    assert stats.ok_count == 1
+    assert res == entity.StatusEnum.OK
+
+
+def test_diastolic_blood_analysis8(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(59, stats)
+    assert stats.minor_count == 1
+    assert res == entity.StatusEnum.MINOR
+
+
+def test_diastolic_blood_analysis9(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(81, stats)
+    assert stats.minor_count == 1
+    assert res == entity.StatusEnum.MINOR
+
+
+def test_diastolic_blood_analysis9(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(85, stats)
+    assert stats.minor_count == 1
+    assert res == entity.StatusEnum.MINOR
+
+
+def test_diastolic_blood_analysis10(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(90, stats)
+    assert stats.major_count == 1
+    assert res == entity.StatusEnum.MAJOR
+
+
+def test_diastolic_blood_analysis11(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(45, stats)
+    assert stats.major_count == 1
+    assert res == entity.StatusEnum.MAJOR
+
+
+def test_diastolic_blood_analysis12(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(30, stats)
+    assert stats.life_threatening_count == 1
+    assert res == entity.StatusEnum.LIFE_THREATENING
+
+
+def test_diastolic_blood_analysis13(capsys):
+    """Testing oxygen_analysis"""
+    stats = entity.MeasurementStatistics()
+    res = processor.blood_pressure_diastolic_analysis(130, stats)
+    assert stats.life_threatening_count == 1
+    assert res == entity.StatusEnum.LIFE_THREATENING
