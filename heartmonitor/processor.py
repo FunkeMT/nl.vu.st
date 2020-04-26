@@ -139,9 +139,20 @@ def pulse_analysis(
     return result
 
 
-def blood_pressure_systolic_analysis(blood_pressure_systolic, measurement_statistics):
+def blood_pressure_systolic_analysis(
+    blood_pressure_systolic, measurement_statistics
+) -> entity.StatusEnum:
+    """
+    Checks validation and valuation and increment status in statistics of
+    systolic pressure..
+
+    :param: blood_pressure_systolic The systolic blood pressure level to analyse.
+    :param: measurement_statistics The statistics to update with the analysis.
+    :return The result of the analysis.
+    """
 
     if not blood_pressure_systolic_validation(blood_pressure_systolic):
+        measurement_statistics.increment(entity.StatusEnum.MISSING)
         return entity.StatusEnum.MISSING
 
     status = blood_pressure_systolic_valuation(blood_pressure_systolic)
@@ -149,7 +160,13 @@ def blood_pressure_systolic_analysis(blood_pressure_systolic, measurement_statis
     return status
 
 
-def blood_pressure_systolic_validation(blood_pressure_systolic):
+def blood_pressure_systolic_validation(blood_pressure_systolic) -> bool:
+    """
+    Checks if it is an integer and if the number is between -1 and 251.
+
+    :param: blood_pressure_systolic: The blood pressure to check.
+    :return True if a valid value was given.
+    """
 
     if not str(blood_pressure_systolic).isnumeric():
         return False
@@ -157,9 +174,12 @@ def blood_pressure_systolic_validation(blood_pressure_systolic):
     return int(blood_pressure_systolic) < 251 and int(blood_pressure_systolic) >= 0
 
 
-def blood_pressure_systolic_valuation(blood_pressure_systolic):
+def blood_pressure_systolic_valuation(blood_pressure_systolic) -> entity.StatusEnum:
     """
-    Checks different values to assign a status to
+    Checks different values to assign a status to.
+
+    :param: blood_pressure_systolic systolic blood pressure level to evaluate.
+    :return Status of the systolic blood pressure.
     """
     if blood_pressure_systolic >= 180:
         return entity.StatusEnum.LIFE_THREATENING
@@ -177,9 +197,20 @@ def blood_pressure_systolic_valuation(blood_pressure_systolic):
         return entity.StatusEnum.OK
 
 
-def blood_pressure_diastolic_analysis(blood_pressure_diastolic, measurement_statistics):
+def blood_pressure_diastolic_analysis(
+    blood_pressure_diastolic, measurement_statistics
+) -> entity.StatusEnum:
+    """
+    Checks validation and valuation and increment status in statistics of
+    diastolic pressure..
+
+    :param: blood_pressure_diastolic The diastolic blood pressure level to analyse.
+    :param: measurement_statistics The statistics to update with the analysis.
+    :return The result of the analysis.
+    """
 
     if not blood_pressure_diastolic_validation(blood_pressure_diastolic):
+        measurement_statistics.increment(entity.StatusEnum.MISSING)
         return entity.StatusEnum.MISSING
 
     status = blood_pressure_diastolic_valuation(blood_pressure_diastolic)
@@ -187,7 +218,13 @@ def blood_pressure_diastolic_analysis(blood_pressure_diastolic, measurement_stat
     return status
 
 
-def blood_pressure_diastolic_validation(blood_pressure_diastolic):
+def blood_pressure_diastolic_validation(blood_pressure_diastolic) -> bool:
+    """
+    Checks if it is an integer and if the number is between -1 and 141.
+
+    :param: blood_pressure_diastolic: The blood pressure to check.
+    :return True if a valid value was given.
+    """
 
     if not str(blood_pressure_diastolic).isnumeric():
         return False
@@ -195,10 +232,14 @@ def blood_pressure_diastolic_validation(blood_pressure_diastolic):
     return int(blood_pressure_diastolic) < 141 and int(blood_pressure_diastolic) >= 0
 
 
-def blood_pressure_diastolic_valuation(blood_pressure_diastolic):
+def blood_pressure_diastolic_valuation(blood_pressure_diastolic) -> entity.StatusEnum:
     """
-    Checks different values to assign a status to
+    Checks different values to assign a status to.
+
+    :param: blood_pressure_diastolic Blood pressure level to evaluate.
+    :return Status of the diastolic blood pressure.
     """
+
     if blood_pressure_diastolic >= 120:
         return entity.StatusEnum.LIFE_THREATENING
     elif blood_pressure_diastolic < 40:
