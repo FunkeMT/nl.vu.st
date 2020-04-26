@@ -52,9 +52,6 @@ def main(argv: List[str]):
             m, statistics
         )  # add other measurements statistics here
         output_parser.print_status(measurement_results)
-        # print("RESULT FOR OXYGEN", measurement_results.oxygen_status)
-        # print("RESULT FOR SYSBP", measurement_results.blood_pressure_systolic_status)
-        # print("RESULT FOR DIABP", measurement_results.blood_pressure_diastolic_status)
         number_of_measurements += 1
         wait_on_new_measurement()
 

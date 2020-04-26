@@ -193,7 +193,7 @@ def blood_pressure_systolic_valuation(blood_pressure_systolic) -> entity.StatusE
         return entity.StatusEnum.MINOR
     elif blood_pressure_systolic < 90:
         return entity.StatusEnum.MINOR
-    elif blood_pressure_systolic <= 129:
+    else:
         return entity.StatusEnum.OK
 
 
@@ -252,5 +252,5 @@ def blood_pressure_diastolic_valuation(blood_pressure_diastolic) -> entity.Statu
         return entity.StatusEnum.MINOR
     elif blood_pressure_diastolic < 60:
         return entity.StatusEnum.MINOR
-    elif blood_pressure_diastolic <= 80:
+    else:
         return entity.StatusEnum.OK
