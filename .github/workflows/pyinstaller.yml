@@ -27,5 +27,27 @@ jobs:
       run: ls dist
     - uses: actions/upload-artifact@master
       with:
-        name: Unix
+        name: Unix_HB-Sim2020
+        path: dist/HB-Sim2020
+        
+  build-macos:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+    - name: build with pyinstaller
+      run: |
+        pyinstaller heartmonitor/heartbeatmonitor.py -n HB-Sim2020 --onefile
+    - name: See dist directory
+      run: ls dist
+    - uses: actions/upload-artifact@master
+      with:
+        name: MacOS_HB-Sim2020
         path: dist/HB-Sim2020
