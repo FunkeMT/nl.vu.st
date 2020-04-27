@@ -1,7 +1,6 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+# This workflow will create Python standalone packages
 
-name: PyInstaller UNIX
+name: PyInstaller
 
 on:
   push:
@@ -9,10 +8,8 @@ on:
     - '*'
 
 jobs:
-  build:
-
+  build-unix:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
@@ -26,3 +23,9 @@ jobs:
     - name: build with pyinstaller
       run: |
         pyinstaller heartmonitor/heartbeatmonitor.py -n HB-Sim2020 --onefile
+    - name: See dist directory
+      run: ls dist
+    - uses: actions/upload-artifact@master
+      with:
+        name: Unix
+        path: dist/HB-Sim2020
