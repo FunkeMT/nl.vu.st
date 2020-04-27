@@ -1,4 +1,5 @@
-![pytesting](https://github.com/FunkeMT/nl.vu.st/workflows/pytesting/badge.svg)
+![PyTesting](https://github.com/FunkeMT/nl.vu.st/workflows/pytesting/badge.svg)
+![PyInstaller](https://github.com/FunkeMT/nl.vu.st/workflows/PyInstaller/badge.svg)
 
 # nl.vu.st
 VU Amsterdam - Computer Science - Software Testing
