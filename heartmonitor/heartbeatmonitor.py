@@ -3,7 +3,7 @@ import sys
 from typing import List
 import time
 
-MEASUREMENT_INTERVAL_IN_MS = 1000
+MEASUREMENT_INTERVAL_IN_MS = 500
 MILLISECONDS_IN_SECOND = 1000
 
 
