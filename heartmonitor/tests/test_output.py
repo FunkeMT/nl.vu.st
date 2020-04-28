@@ -18,7 +18,7 @@ def test_output_parse(capsys):
     m = entity.Measurement(90, 100, 110, 120)
     mr = entity.MeasurementResult(
         m,
-        entity.StatusEnum.MISSING,
+        entity.StatusEnum.MINOR,
         entity.StatusEnum.OK,
         entity.StatusEnum.LIFE_THREATENING,
         entity.StatusEnum.MAJOR,
@@ -29,10 +29,87 @@ def test_output_parse(capsys):
     assert "100" in captured.out
     assert "110" in captured.out
     assert "120" in captured.out
+    assert "MINOR" in captured.out
+    assert "OK" in captured.out
+    assert "MAJOR" in captured.out
+    assert "LIFE_THREATENING" in captured.out
+
+def test_output_parse2(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.MISSING,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.LIFE_THREATENING,
+        entity.StatusEnum.MAJOR,
+    )
+    res = output_parser.print_status(mr)
+    captured = capsys.readouterr()
+    assert ": 0" in captured.out
+    assert "100" in captured.out
+    assert "110" in captured.out
+    assert "120" in captured.out
     assert "MISSING" in captured.out
     assert "OK" in captured.out
     assert "MAJOR" in captured.out
     assert "LIFE_THREATENING" in captured.out
+
+
+def test_output_parse3(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.MISSING,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+    )
+    res = output_parser.print_status(mr)
+    captured = capsys.readouterr()
+    assert ": 0" in captured.out
+    assert "90" in captured.out
+    assert "110" in captured.out
+    assert "120" in captured.out
+    assert "MISSING" in captured.out
+    assert "OK" in captured.out
+
+
+def test_output_parse4(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.MISSING,
+        entity.StatusEnum.OK,
+    )
+    res = output_parser.print_status(mr)
+    captured = capsys.readouterr()
+    assert "Blood pressure 0/" in captured.out
+    assert "100" in captured.out
+    assert "90" in captured.out
+    assert "120" in captured.out
+    assert "MISSING" in captured.out
+    assert "OK" in captured.out
+
+
+def test_output_parse5(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.MISSING,
+    )
+    res = output_parser.print_status(mr)
+    captured = capsys.readouterr()
+    assert "0 mm Hg," in captured.out
+    assert "100" in captured.out
+    assert "90" in captured.out
+    assert "110" in captured.out
+    assert "MISSING" in captured.out
+    assert "OK" in captured.out
 
 
 def test_print_statistics(capsys):

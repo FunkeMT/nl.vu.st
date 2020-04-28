@@ -47,7 +47,14 @@ def main(argv: List[str]):
 
     number_of_measurements = 0
 
-    for m in entity.FileRecording(csv_location).get_iterator():
+    recording = entity.FileRecording(csv_location).get_iterator()
+    while True:
+        m = None  # type: entity.Measurement
+        try:
+            m = recording.__next__(make_invalid_measurement_missing=True)
+        except StopIteration:
+            break
+
         measurement_results = processor.processing_agent(m, statistics)
         output_parser.print_status(measurement_results)
         number_of_measurements += 1
