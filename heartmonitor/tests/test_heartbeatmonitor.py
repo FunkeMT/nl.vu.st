@@ -29,5 +29,5 @@ def test_wait_on_new_measurement(capsys):
     before_timestamp = datetime.datetime.now().timestamp()
     assert heartbeatmonitor.wait_on_new_measurement() is None
     difference = (datetime.datetime.now().timestamp() - before_timestamp) * 1000
-    assert difference - 1 <= heartbeatmonitor.MEASUREMENT_INTERVAL_IN_MS
-    assert difference + 1 >= heartbeatmonitor.MEASUREMENT_INTERVAL_IN_MS
+    assert difference - 10 <= heartbeatmonitor.MEASUREMENT_INTERVAL_IN_MS
+    assert difference + 10 >= heartbeatmonitor.MEASUREMENT_INTERVAL_IN_MS
