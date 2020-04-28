@@ -49,7 +49,7 @@ def main(argv: List[str]):
 
     recording = entity.FileRecording(csv_location).get_iterator()
     while True:
-        m = None  # type: Measurement
+        m = None  # type: entity.Measurement
         try:
             m = recording.__next__(make_invalid_measurement_missing=True)
         except StopIteration:
