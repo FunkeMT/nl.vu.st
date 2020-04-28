@@ -50,7 +50,7 @@ def print_statistics(s: Statistics):
     print_measurement_statistics(s.blood_pressure_systolic)
     print(f"Blood pressure diastolic statistics: \t", end="")
     print_measurement_statistics(s.blood_pressure_diastolic)
-    print(f"Simulation finished: \t")
+    print(f"Simulation finished: \t", end="")
 
 
 def print_measurement_statistics(ms: MeasurementStatistics):

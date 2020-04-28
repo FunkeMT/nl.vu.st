@@ -53,6 +53,7 @@ def main(argv: List[str]):
         number_of_measurements += 1
         wait_on_new_measurement()
     output_parser.print_statistics(statistics)
+    print(f"Processed {number_of_measurements} measurements")
 
 
 if __name__ == "__main__":
