@@ -16,7 +16,7 @@ def test_help(capsys):
 
 def test_MEASUREMENT_INTERVAL_IN_MS(capsys):
     """Testing MEASUREMENT_INTERVAL_IN_MS"""
-    assert heartbeatmonitor.MEASUREMENT_INTERVAL_IN_MS == 500
+    assert heartbeatmonitor.MEASUREMENT_INTERVAL_IN_MS == 1000
 
 
 def test_MILLISECONDS_IN_SECOND(capsys):
