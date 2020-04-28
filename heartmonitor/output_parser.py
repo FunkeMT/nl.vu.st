@@ -43,39 +43,66 @@ def print_statistics(s: Statistics):
 
     """
     print(f"Pulse statistics: \t\t", end="")
-    print_measurement_statistics(s.pulse)
+    pulsestring = "Pulse statistics: \t\t"
+    pulsecontent = print_measurement_statistics(s.pulse)
     print(f"Oxygen statistics: \t\t", end="")
-    print_measurement_statistics(s.oxygen)
+    oxygenstring = "Oxygen statistics: \t\t"
+    oxygencontent = print_measurement_statistics(s.oxygen)
     print(f"Blood pressure systolic statistics: \t", end="")
-    print_measurement_statistics(s.blood_pressure_systolic)
+    systolicstring = "Blood pressure systolic statistics: \t"
+    systoliccontent = print_measurement_statistics(s.blood_pressure_systolic)
     print(f"Blood pressure diastolic statistics: \t", end="")
-    print_measurement_statistics(s.blood_pressure_diastolic)
+    diastolicstring = "Blood pressure diastolic statistics: \t"
+    diastoliccontent = print_measurement_statistics(s.blood_pressure_diastolic)
     print(f"Simulation finished: \t", end="")
+    finishedstring = "Simulation Finished: \t"
+
+    statisticsstring = (
+        pulsestring
+        + pulsecontent
+        + "\n"
+        + oxygenstring
+        + oxygencontent
+        + "\n"
+        + systolicstring
+        + systoliccontent
+        + "\n"
+        + diastolicstring
+        + diastoliccontent
+        + "\n"
+        + finishedstring
+    )
+    return statisticsstring
 
 
-def print_measurement_statistics(ms: MeasurementStatistics):
+def print_measurement_statistics(ms: MeasurementStatistics) -> str:
     """
     Prints a MeasuremenStatistics object with color for status
     
     :param: ms: MeasurementStatistics object
 
     """
+    statisticsstring = "[OK: {ok};\t\tMISSING: {missing};\t\tMINOR: {minor};\t\tMAJOR: {major};\t\tLIFE_THREATENING: {lt}]".format(
+        ok=ms.ok_count,
+        missing=ms.missing_count,
+        minor=ms.minor_count,
+        major=ms.major_count,
+        lt=ms.life_threatening_count,
+    )
 
-    if ms.ok_count < 10:
-        print(
-            f"[{colors.GREEN}OK{colors.ENDC}: {ms.ok_count};\t\t {colors.BLUE}MISSING{colors.ENDC}: {ms.missing_count};\t {colors.YELLOW}MINOR{colors.ENDC}:{ms.minor_count};\t {colors.ORANGE} MAJOR{colors.ENDC}: {ms.major_count};\t {colors.RED} LIFE_THREATENING{colors.ENDC}: {ms.life_threatening_count}\t]"
-        )
-    else:
-        print(
-            f"[{colors.GREEN}OK{colors.ENDC}: {ms.ok_count};\t {colors.BLUE}MISSING{colors.ENDC}: {ms.missing_count};\t {colors.YELLOW}MINOR{colors.ENDC}:{ms.minor_count};\t {colors.ORANGE} MAJOR{colors.ENDC}: {ms.major_count};\t {colors.RED} LIFE_THREATENING{colors.ENDC}: {ms.life_threatening_count}\t]"
-        )
+    print(
+        f"[{colors.GREEN}OK{colors.ENDC}: {ms.ok_count};\t\t{colors.BLUE}MISSING{colors.ENDC}: {ms.missing_count};\t{colors.YELLOW}MINOR{colors.ENDC}:{ms.minor_count};\t {colors.ORANGE} MAJOR{colors.ENDC}: {ms.major_count};\t {colors.RED} LIFE_THREATENING{colors.ENDC}: {ms.life_threatening_count}\t]"
+    )
+
+    return statisticsstring
 
 
-def print_status(mr: MeasurementResult):
+def print_status(mr: MeasurementResult) -> str:
     """
     Prints measurement results
 
     "param" mr: MeasurementResult object
+    "return" the string that is printed to the screen
 
     """
     post_status = colors.ENDC

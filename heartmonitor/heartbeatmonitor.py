@@ -52,7 +52,9 @@ def main(argv: List[str]):
         logger.log(output_parser.print_status(measurement_results))
         number_of_measurements += 1
         wait_on_new_measurement()
-    output_parser.print_statistics(statistics)
+    logger.log(output_parser.print_statistics(statistics))
+    message_done = "Processed {nom} measurements".format(nom=number_of_measurements)
+    logger.log(message_done)
     print(f"Processed {number_of_measurements} measurements")
 
 
