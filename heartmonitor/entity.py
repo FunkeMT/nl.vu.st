@@ -69,6 +69,9 @@ class AbstractRecording:
         raise StopIteration
 
 
+class FileNotFound(Exception): pass
+
+
 class FileRecording(AbstractRecording):
     def __init__(self, filepath: str):
         """
@@ -78,9 +81,10 @@ class FileRecording(AbstractRecording):
         :raises: AssertionError When a header field was missing.
         :raises: Exception When the file could not be found.
         """
+        self._fpointer = None
         self.filepath = filepath
         if not os.path.exists(filepath):
-            raise Exception("Could not find recording file.")
+            raise FileNotFound("Could not find recording file.")
 
         self._fpointer = open(self.filepath, "r")
         parts = next(csv.reader([self._fpointer.readline()]))
@@ -120,31 +124,57 @@ class FileRecording(AbstractRecording):
         assert "blood_pressure_systolic" in heading_parts
         assert "blood_pressure_diastolic" in heading_parts
 
-    def _line_to_measurement(self, line: List[str]) -> Measurement:
+
+    def _parse_field(self, line: List[str], index: int,
+        make_invalid_measurement_missing: bool=False) -> int:
+        """
+        Parse a CSV field into an int value.
+
+        :param: line Parsed CSV line.
+        :param: index Index of the value.
+        :param: make_invalid_measurement_missing Make invalid values None.
+        :return: Value of the field parsed into a int value.
+        :raises: ValueError When make_invalid_measurement_missing was not
+                            set and an incorrect value was parsed.
+        """
+        result = None
+        try:
+            if line[index]:
+                result = int(line[index])
+        except ValueError as ex:
+            if not make_invalid_measurement_missing: raise ex
+            result = None
+        return result
+
+
+    def _line_to_measurement(self, line: List[str], 
+        make_invalid_measurement_missing: bool=False) -> Measurement:
         """
         Convert a parsed CSV line to a measurement object.
 
         :param: line Parsed CSV line.
+        :param: make_invalid_measurement_missing Make invalid values None.
         :return: Line that has been parsed to a measurement object. 
+        :raises: ValueError When make_invalid_measurement_missing was not
+                            set and an incorrect value was parsed.
         """
         res = Measurement()
-        if line[self.index_oxygen]:
-            res.oxygen = int(line[self.index_oxygen])
-        if line[self.index_pulse]:
-            res.pulse = int(line[self.index_pulse])
-
-        if line[self.index_systolic]:
-            res.blood_pressure_systolic = int(line[self.index_systolic])
-
-        if line[self.index_diastolic]:
-            res.blood_pressure_diastolic = int(line[self.index_diastolic])
+        res.oxygen = self._parse_field(line, self.index_oxygen,
+            make_invalid_measurement_missing)
+        res.pulse = self._parse_field(line, self.index_pulse,
+            make_invalid_measurement_missing)
+        res.blood_pressure_systolic = self._parse_field(line,
+            self.index_systolic, make_invalid_measurement_missing)
+        res.blood_pressure_diastolic = self._parse_field(line,
+            self.index_diastolic, make_invalid_measurement_missing)
 
         return res
 
-    def __next__(self) -> Measurement:
+    def __next__(self, make_invalid_measurement_missing: bool=False) -> Measurement:
         """
         Read the next measurement from file.
 
+        :param: make_invalid_measurement_missing Make invalid values None.
         :return The measurement that has been read from disk.
         :raises: ValueError When an measurement doesnot contain integer values.
         :raises: IndexError When a field is missing in a recording line.
@@ -154,7 +184,7 @@ class FileRecording(AbstractRecording):
             parts = next(csv.reader([line]))
             if not parts:
                 raise StopIteration
-            return self._line_to_measurement(parts)
+            return self._line_to_measurement(parts, make_invalid_measurement_missing)
         except StopIteration:
             raise StopIteration
 
