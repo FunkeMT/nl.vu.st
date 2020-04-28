@@ -55,12 +55,12 @@ def main(argv: List[str]):
         except StopIteration:
             break
 
-        measurement_results = processor.processing_agent(
-            m, statistics
-        )  # add other measurements statistics here
+        measurement_results = processor.processing_agent(m, statistics)
         output_parser.print_status(measurement_results)
         number_of_measurements += 1
         wait_on_new_measurement()
+    output_parser.print_statistics(statistics)
+    print(f"Processed {number_of_measurements} measurements")
 
 
 if __name__ == "__main__":
