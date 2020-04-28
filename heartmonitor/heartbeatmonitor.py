@@ -47,7 +47,16 @@ def main(argv: List[str]):
 
     number_of_measurements = 0
 
-    recording = entity.FileRecording(csv_location).get_iterator()
+    recording = None  # type: entity.FileRecording
+    try:
+        recording = entity.FileRecording(csv_location).get_iterator()
+    except entity.FileNotFound:
+        print_help()
+        sys.exit(2)
+    except:
+        print_help()
+        sys.exit(3)
+
     while True:
         m = None  # type: entity.Measurement
         try:

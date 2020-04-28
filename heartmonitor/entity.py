@@ -69,6 +69,9 @@ class AbstractRecording:
         raise StopIteration
 
 
+class FileNotFound(Exception): pass
+
+
 class FileRecording(AbstractRecording):
     def __init__(self, filepath: str):
         """
@@ -78,9 +81,10 @@ class FileRecording(AbstractRecording):
         :raises: AssertionError When a header field was missing.
         :raises: Exception When the file could not be found.
         """
+        self._fpointer = None
         self.filepath = filepath
         if not os.path.exists(filepath):
-            raise Exception("Could not find recording file.")
+            raise FileNotFound("Could not find recording file.")
 
         self._fpointer = open(self.filepath, "r")
         parts = next(csv.reader([self._fpointer.readline()]))
