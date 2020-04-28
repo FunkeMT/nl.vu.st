@@ -628,6 +628,8 @@ def test_MockRecording(capsys):
 
     for x in mr.get_iterator():
         assert mr.results[0] == x
+    
+    assert mr.__iter__() == mr.results
 
 
 def test_MeasurementStatistics(capsys):
