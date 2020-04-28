@@ -18,7 +18,7 @@ class colors:
     ENDC = "\033[0m"
 
 
-def get_severity_color(status: StatusEnum):
+def get_severity_color(status: StatusEnum) -> StatusEnum:
     """
     Returns color according to severity of the threat
     
@@ -35,11 +35,12 @@ def get_severity_color(status: StatusEnum):
     return switcher.get(status)
 
 
-def print_statistics(s: Statistics):
+def print_statistics(s: Statistics) -> str:
     """
     Prints the statistics with color for status
     
     :param: s: statistics object
+    :return: string object of the printed statistics
 
     """
     print(f"Pulse statistics: \t\t", end="")
@@ -80,6 +81,7 @@ def print_measurement_statistics(ms: MeasurementStatistics) -> str:
     Prints a MeasuremenStatistics object with color for status
     
     :param: ms: MeasurementStatistics object
+    :return: string object of the printed values
 
     """
     statisticsstring = "[OK: {ok};\t\tMISSING: {missing};\t\tMINOR: {minor};\t\tMAJOR: {major};\t\tLIFE_THREATENING: {lt}]".format(

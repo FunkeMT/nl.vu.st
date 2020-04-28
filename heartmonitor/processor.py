@@ -148,7 +148,7 @@ def blood_pressure_systolic_analysis(
 
     :param: blood_pressure_systolic The systolic blood pressure level to analyse.
     :param: measurement_statistics The statistics to update with the analysis.
-    :return The result of the analysis.
+    :return: The result of the analysis.
     """
 
     if not blood_pressure_systolic_validation(blood_pressure_systolic):
@@ -165,7 +165,7 @@ def blood_pressure_systolic_validation(blood_pressure_systolic: int) -> bool:
     Checks if it is an integer and if the number is between -1 and 251.
 
     :param: blood_pressure_systolic: The blood pressure to check.
-    :return True if a valid value was given.
+    :return: True if a valid value was given.
     """
 
     if not str(blood_pressure_systolic).isnumeric():
