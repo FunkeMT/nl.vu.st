@@ -419,7 +419,7 @@ def test_FileRecording28(capsys):
 def test_FileRecording29(capsys):
     """Testing FileRecording"""
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
-    m = fr._line_to_measurement(["1", "2", "3", "4"])
+    m = fr._line_to_measurement(["1", "2", "3", "4"], make_invalid_measurement_missing=True)
     assert isinstance(m, entity.Measurement)
     assert m.oxygen == 1
     assert m.pulse == 2
@@ -430,45 +430,28 @@ def test_FileRecording29(capsys):
 def test_FileRecording30(capsys):
     """Testing FileRecording"""
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
-    happend = False
-    try:
-        fr._line_to_measurement(["1", "2", "3", "a"])
-    except ValueError:
-        happend = True
-    assert happend
+    r = fr._line_to_measurement(["1", "2", "3", "a"], make_invalid_measurement_missing=True)
+    assert r.blood_pressure_diastolic is None
 
 
 def test_FileRecording31(capsys):
     """Testing FileRecording"""
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
-    happend = False
-    try:
-        fr._line_to_measurement(["1", "2", "a", "4"])
-    except ValueError:
-        happend = True
-    assert happend
+    r = fr._line_to_measurement(["1", "2", "a", "4"], make_invalid_measurement_missing=True)
+    assert r.blood_pressure_systolic is None
 
 
 def test_FileRecording32(capsys):
     """Testing FileRecording"""
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
-    happend = False
-    try:
-        fr._line_to_measurement(["1", "a", "3", "4"])
-    except ValueError:
-        happend = True
-    assert happend
-
+    r = fr._line_to_measurement(["1", "a", "3", "4"], make_invalid_measurement_missing=True)
+    assert r.pulse is None
 
 def test_FileRecording33(capsys):
     """Testing FileRecording"""
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
-    happend = False
-    try:
-        fr._line_to_measurement(["a", "2", "3", "4"])
-    except ValueError:
-        happend = True
-    assert happend
+    r = fr._line_to_measurement(["a", "2", "3", "4"], make_invalid_measurement_missing=True)
+    assert r.oxygen is None
 
 
 def test_FileRecording34(capsys):
@@ -476,7 +459,7 @@ def test_FileRecording34(capsys):
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
     happend = False
     try:
-        fr._line_to_measurement(["a", "2", "3", "4"])
+        fr._line_to_measurement(["a", "2", "3", "4"], make_invalid_measurement_missing=False)
     except ValueError:
         happend = True
     assert happend
@@ -487,7 +470,7 @@ def test_FileRecording35(capsys):
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
     happend = False
     try:
-        fr._line_to_measurement([])
+        fr._line_to_measurement([], make_invalid_measurement_missing=False)
     except IndexError:
         happend = True
     assert happend
@@ -496,11 +479,143 @@ def test_FileRecording35(capsys):
 def test_FileRecording36(capsys):
     """Testing FileRecording"""
     fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
-    m = fr._line_to_measurement(["", "", "", ""])
+    m = fr._line_to_measurement(["", "", "", ""], make_invalid_measurement_missing=False)
     assert m.blood_pressure_diastolic is None
     assert m.blood_pressure_systolic is None
     assert m.oxygen is None
     assert m.pulse is None
+
+
+def test_FileRecording37(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    m = fr._line_to_measurement(["1", "2", "3", "4"], make_invalid_measurement_missing=False)
+    assert isinstance(m, entity.Measurement)
+    assert m.oxygen == 1
+    assert m.pulse == 2
+    assert m.blood_pressure_systolic == 3
+    assert m.blood_pressure_diastolic == 4
+
+
+def test_FileRecording38(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["1", "2", "3", "a"], make_invalid_measurement_missing=False)
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording39(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["1", "2", "a", "4"], make_invalid_measurement_missing=False)
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording40(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["1", "a", "3", "4"], make_invalid_measurement_missing=False)
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording41(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["a", "2", "3", "4"], make_invalid_measurement_missing=False)
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording42(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["a", "2", "3", "4"], make_invalid_measurement_missing=False)
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording43(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement([], make_invalid_measurement_missing=False)
+    except IndexError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording44(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    m = fr._line_to_measurement(["", "", "", ""], make_invalid_measurement_missing=False)
+    assert m.blood_pressure_diastolic is None
+    assert m.blood_pressure_systolic is None
+    assert m.oxygen is None
+    assert m.pulse is None
+
+
+def test_FileRecording45(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert fr._parse_field(["0", "54", "a"], 0, make_invalid_measurement_missing=True) == 0
+    assert fr._parse_field(["0", "54", "a"], 1, make_invalid_measurement_missing=True) == 54
+    assert fr._parse_field(["0", "54", "a"], 2, make_invalid_measurement_missing=True) is None
+
+
+def test_FileRecording46(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    assert fr._parse_field(["0", "54", "a"], 0, make_invalid_measurement_missing=False) == 0
+    assert fr._parse_field(["0", "54", "a"], 1, make_invalid_measurement_missing=False) == 54
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._parse_field(["0", "54", "a"], 2, make_invalid_measurement_missing=False)
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording47(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._parse_field(["0", "54", "a"], 3, make_invalid_measurement_missing=True)
+    except IndexError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording48(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._parse_field(["0", "54", "a"], 3, make_invalid_measurement_missing=False)
+    except IndexError:
+        happend = True
+    assert happend
 
 
 def test_MockRecording(capsys):

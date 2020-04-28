@@ -6,7 +6,7 @@ from entity import (
     Statistics,
 )
 from datetime import datetime
-
+import entity
 
 class colors:
     PURPLE = "\033[95m"
@@ -81,10 +81,23 @@ def print_status(mr: MeasurementResult):
     post_status = colors.ENDC
 
     print(f"[%s]" % (datetime.now().strftime("%d-%m-%y %H:%M:%S")), end=" ")
+    pulse = mr.m.pulse
+    oxygen = mr.m.oxygen
+    blood_pressure_diastolic = mr.m.blood_pressure_diastolic
+    blood_pressure_systolic = mr.m.blood_pressure_systolic
+
+    if mr.pulse_status == entity.StatusEnum.MISSING:
+        pulse = 0
+    if mr.oxygen_status == entity.StatusEnum.MISSING:
+        oxygen = 0
+    if mr.blood_pressure_systolic_status == entity.StatusEnum.MISSING:
+        blood_pressure_systolic = 0
+    if mr.blood_pressure_diastolic_status == entity.StatusEnum.MISSING:
+        blood_pressure_diastolic = 0
     print(
         f"Pulse: %d bpm, status: %s%s%s"
         % (
-            mr.m.pulse,
+            pulse,
             get_severity_color(mr.pulse_status),
             mr.pulse_status.value,
             post_status,
@@ -94,7 +107,7 @@ def print_status(mr: MeasurementResult):
     print(
         f"SaO2: %d %%, status: %s%s%s"
         % (
-            mr.m.oxygen,
+            oxygen,
             get_severity_color(mr.oxygen_status),
             mr.oxygen_status.value,
             post_status,
@@ -104,8 +117,8 @@ def print_status(mr: MeasurementResult):
     print(
         f"Blood pressure %d/%d mm Hg, Systolic status: %s%s%s, Diastolic status: %s%s%s"
         % (
-            mr.m.blood_pressure_systolic,
-            mr.m.blood_pressure_diastolic,
+            blood_pressure_systolic,
+            blood_pressure_diastolic,
             get_severity_color(mr.blood_pressure_systolic_status),
             mr.blood_pressure_systolic_status.value,
             post_status,
