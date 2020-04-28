@@ -118,7 +118,7 @@ class FileRecording(AbstractRecording):
         :raises: AssertionError When a field was missing.
         """
         # Validate heading row.
-        assert len(heading_parts) == 4
+        assert len(heading_parts) >= 4
         assert "oxygen" in heading_parts
         assert "pulse" in heading_parts
         assert "blood_pressure_systolic" in heading_parts

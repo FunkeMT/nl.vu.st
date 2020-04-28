@@ -158,8 +158,9 @@ def test_FileRecording9(capsys):
     """Testing FileRecording"""
     happend = False
     try:
-        entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_7.csv")
-    except AssertionError:
+        fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_missing_7.csv")
+        fr.__iter__().__next__()
+    except StopIteration:
         happend = True
     assert happend
 
@@ -614,6 +615,102 @@ def test_FileRecording48(capsys):
     try:
         fr._parse_field(["0", "54", "a"], 3, make_invalid_measurement_missing=False)
     except IndexError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording49(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_1.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
+        happend = True
+    assert happend
+
+
+def test_FileRecording50(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_2.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
+        happend = True
+    assert happend
+
+
+def test_FileRecording51(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_3.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
+        happend = True
+    assert happend
+
+
+def test_FileRecording52(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_4.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
+        happend = True
+    assert happend
+
+
+def test_FileRecording53(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_5.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
+        happend = True
+    assert happend
+
+
+def test_FileRecording54(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_6.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
+        happend = True
+    assert happend
+
+
+def test_FileRecording55(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_7.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
+        happend = True
+    assert happend
+
+
+def test_FileRecording56(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/heading_extras_8.csv")
+    fr.__iter__().__next__()
+    try:
+        fr.__iter__().__next__()
+    except StopIteration:
         happend = True
     assert happend
 
