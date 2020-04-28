@@ -1,4 +1,4 @@
-import argv_parser, entity, processor, output_parser
+import argv_parser, entity, processor, output_parser, logger
 import sys
 from typing import List
 import time
@@ -49,7 +49,7 @@ def main(argv: List[str]):
 
     for m in entity.FileRecording(csv_location).get_iterator():
         measurement_results = processor.processing_agent(m, statistics)
-        output_parser.print_status(measurement_results)
+        logger.log(output_parser.print_status(measurement_results))
         number_of_measurements += 1
         wait_on_new_measurement()
     output_parser.print_statistics(statistics)

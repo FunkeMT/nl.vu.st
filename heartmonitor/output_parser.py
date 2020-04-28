@@ -80,7 +80,12 @@ def print_status(mr: MeasurementResult):
     """
     post_status = colors.ENDC
 
-    print(f"[%s]" % (datetime.now().strftime("%d-%m-%y %H:%M:%S")), end=" ")
+    now = datetime.now().strftime("%d-%m-%y %H:%M:%S")
+    datestring = "[{time}]".format(time=now)
+    print(f"{datestring}", end=" ")
+    pulsestring = "Pulse: {pulse} bpm, status: {pulse_status}".format(
+        pulse=mr.m.pulse, pulse_status=mr.pulse_status.value
+    )
     print(
         f"Pulse: %d bpm, status: %s%s%s"
         % (
@@ -91,8 +96,11 @@ def print_status(mr: MeasurementResult):
         ),
         end=" | ",
     )
+    oxygenstring = "SaO2: {oxygen}% status: {oxygen_status}".format(
+        oxygen=mr.m.oxygen, oxygen_status=mr.oxygen_status.value
+    )
     print(
-        f"SaO2: %d %%, status: %s%s%s"
+        f"SaO2: %d%%, status: %s%s%s"
         % (
             mr.m.oxygen,
             get_severity_color(mr.oxygen_status),
@@ -101,8 +109,15 @@ def print_status(mr: MeasurementResult):
         ),
         end=" | ",
     )
+    bloodpressurestring = "Blood pressure: {systolic}/{diastolic} mm Hg, Systolic status: {systolic_status}, Diastolic status: {diastolic_status}".format(
+        systolic=mr.m.blood_pressure_systolic,
+        diastolic=mr.m.blood_pressure_diastolic,
+        systolic_status=mr.blood_pressure_systolic_status.value,
+        diastolic_status=mr.blood_pressure_diastolic_status.value,
+    )
+
     print(
-        f"Blood pressure %d/%d mm Hg, Systolic status: %s%s%s, Diastolic status: %s%s%s"
+        f"Blood pressure: %d/%d mm Hg, Systolic status: %s%s%s, Diastolic status: %s%s%s"
         % (
             mr.m.blood_pressure_systolic,
             mr.m.blood_pressure_diastolic,
@@ -113,4 +128,15 @@ def print_status(mr: MeasurementResult):
             mr.blood_pressure_diastolic_status.value,
             post_status,
         )
+    )
+
+    return (
+        datestring
+        + " | "
+        + pulsestring
+        + " | "
+        + oxygenstring
+        + " | "
+        + bloodpressurestring
+        + "\n"
     )
