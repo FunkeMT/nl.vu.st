@@ -79,7 +79,7 @@ def oxygen_valuation(oxygen: int) -> entity.StatusEnum:
         return entity.StatusEnum.MINOR
     elif oxygen > 60:
         return entity.StatusEnum.MAJOR
-    elif oxygen <= 60:
+    else:
         return entity.StatusEnum.LIFE_THREATENING
 
 
