@@ -51,6 +51,10 @@ jobs:
       with:
         name: MacOS_latest_HB-Sim2020
         path: dist/HB-Sim2020
+    - uses: actions/upload-artifact@master
+      with:
+        name: MacOS_latest_HB-Sim2020
+        path: heartmonitor/input/normal_20.csv
         
   build-windows:
     runs-on: windows-latest
