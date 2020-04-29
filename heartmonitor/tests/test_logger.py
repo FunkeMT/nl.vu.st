@@ -9,7 +9,12 @@ import os
 LOG_FOLDER_NAME = (
     str(pathlib.Path(__file__).parent.absolute().parent.absolute())
     + os.path.sep
-    + "logs"
+    + "test_logs"
+)
+logger.LOG_FOLDER_NAME = (
+    str(pathlib.Path(__file__).parent.absolute().parent.absolute())
+    + os.path.sep
+    + "test_logs"
 )
 PARENT_FOLDER = (
     str(pathlib.Path(__file__).parent.absolute().parent.absolute()) + os.path.sep
