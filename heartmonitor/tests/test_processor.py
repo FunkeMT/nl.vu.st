@@ -483,24 +483,10 @@ def test_pulse_analysis_determine16(capsys):
 
 def test_pulse_analysis1(capsys):
     """Testing pulse_analysis"""
-    happend = False
-    try:
-        processor.pulse_analysis("a", None)
-    except TypeError:
-        happend = True
-
-    assert happend
-
-
-def test_pulse_analysis2(capsys):
-    """Testing pulse_analysis"""
-    happend = False
-    try:
-        processor.pulse_analysis("9", None)
-    except TypeError:
-        happend = True
-
-    assert happend
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis("a", stats)
+    assert stats.missing_count == 1
 
 
 def test_pulse_analysis11(capsys):
@@ -513,13 +499,10 @@ def test_pulse_analysis11(capsys):
 
 def test_pulse_analysis12(capsys):
     """Testing test_pulse_analysis_determine"""
-    happend = False
-    try:
-        stats = entity.MeasurementStatistics()
-        processor.pulse_analysis(-1, stats)
-    except TypeError:
-        happend = True
-    assert happend
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis(-1, stats)
+    assert stats.missing_count == 1
 
 
 def test_pulse_analysis13(capsys):
@@ -636,13 +619,18 @@ def test_pulse_analysis116(capsys):
 
 def test_pulse_analysis3(capsys):
     """Testing pulse_analysis"""
-    happend = False
-    try:
-        processor.pulse_analysis("99.9", None)
-    except TypeError:
-        happend = True
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis("99.9", stats)
+    assert stats.missing_count == 1
 
-    assert happend
+
+def test_pulse_analysis4(capsys):
+    """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis("99", stats)
+    assert stats.missing_count == 1
 
 
 def test_oxygen_measure(capsys):
