@@ -60,7 +60,7 @@ def oxygen_validation(oxygen: int) -> bool:
     :param: oxygen The amount of oxygen to check.
     :return True if a valid value was given.
     """
-    if not str(oxygen).isnumeric():
+    if not str(oxygen).isnumeric() or isinstance(oxygen, str):
         return False
 
     return int(oxygen) < 101 and int(oxygen) >= 0
@@ -79,7 +79,7 @@ def oxygen_valuation(oxygen: int) -> entity.StatusEnum:
         return entity.StatusEnum.MINOR
     elif oxygen > 60:
         return entity.StatusEnum.MAJOR
-    elif oxygen <= 60:
+    else:
         return entity.StatusEnum.LIFE_THREATENING
 
 
@@ -115,7 +115,6 @@ def _pulse_analysis_determine(pulse: int) -> entity.StatusEnum:
             break
     return result
 
-
 def pulse_analysis(
     pulse: int, measurement_statistics: entity.MeasurementStatistics
 ) -> entity.StatusEnum:
@@ -126,13 +125,12 @@ def pulse_analysis(
     :param: pulse Pulse to analyse.
     :param: measurement_statistics Statistics to update.
     :return: Analysed pulse status.
-    :raises: TypeError When an non numeric pulse was given.
     """
     result = entity.StatusEnum.MISSING
-    if not str(pulse).isnumeric():
-        raise TypeError("Pulse should be a whole positive number")
+    if not str(pulse).isnumeric() or isinstance(pulse, str):
+        result = entity.StatusEnum.MISSING
 
-    if str(pulse).isnumeric() and 0 < pulse < 230:
+    elif 0 < pulse < 230:
         result = _pulse_analysis_determine(pulse)
 
     measurement_statistics.increment(result)
@@ -168,10 +166,11 @@ def blood_pressure_systolic_validation(blood_pressure_systolic: int) -> bool:
     :return: True if a valid value was given.
     """
 
-    if not str(blood_pressure_systolic).isnumeric():
+    if not str(blood_pressure_systolic).isnumeric() or isinstance(blood_pressure_systolic, str):
         return False
 
     return int(blood_pressure_systolic) < 251 and int(blood_pressure_systolic) >= 0
+
 
 
 def blood_pressure_systolic_valuation(
@@ -191,7 +190,7 @@ def blood_pressure_systolic_valuation(
         return entity.StatusEnum.MAJOR
     elif blood_pressure_systolic < 60:
         return entity.StatusEnum.MAJOR
-    elif blood_pressure_systolic > 130:
+    elif blood_pressure_systolic >= 130:
         return entity.StatusEnum.MINOR
     elif blood_pressure_systolic < 90:
         return entity.StatusEnum.MINOR
@@ -211,7 +210,7 @@ def blood_pressure_diastolic_analysis(
     :return The result of the analysis.
     """
 
-    if not blood_pressure_diastolic_validation(blood_pressure_diastolic):
+    if not blood_pressure_diastolic_validation(blood_pressure_diastolic) or isinstance(blood_pressure_diastolic, str):
         measurement_statistics.increment(entity.StatusEnum.MISSING)
         return entity.StatusEnum.MISSING
 
@@ -252,7 +251,7 @@ def blood_pressure_diastolic_valuation(
         return entity.StatusEnum.MAJOR
     elif blood_pressure_diastolic < 50:
         return entity.StatusEnum.MAJOR
-    elif blood_pressure_diastolic > 80:
+    elif blood_pressure_diastolic >= 80:
         return entity.StatusEnum.MINOR
     elif blood_pressure_diastolic < 60:
         return entity.StatusEnum.MINOR

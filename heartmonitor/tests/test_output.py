@@ -6,24 +6,14 @@ import os
 
 def test_output_parse(capsys):
     m = entity.Measurement(90, 100, 110, 120)
-    mr = entity.MeasurementResult(m)
-    res = output_parser.print_status(mr)
-    captured = capsys.readouterr()
-    assert "90" in captured.out
-    assert "100" in captured.out
-    assert "110" in captured.out
-    assert "120" in captured.out
-
-
-def test_output_parse(capsys):
-    m = entity.Measurement(90, 100, 110, 120)
     mr = entity.MeasurementResult(
         m,
-        entity.StatusEnum.MISSING,
+        entity.StatusEnum.MINOR,
         entity.StatusEnum.OK,
         entity.StatusEnum.LIFE_THREATENING,
         entity.StatusEnum.MAJOR,
     )
+
     output = output_parser.format_status(mr)
     assert "90" in output
     assert "100" in output
@@ -34,8 +24,81 @@ def test_output_parse(capsys):
     assert "MAJOR" in output
     assert "LIFE_THREATENING" in output
 
+def test_output_parse2(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.MISSING,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.LIFE_THREATENING,
+        entity.StatusEnum.MAJOR,
+    )
+    res = output_parser.format_status(mr)
+    assert ": 0" in res
+    assert "100" in res
+    assert "110" in res
+    assert "120" in res
+    assert "MISSING" in res
+    assert "OK" in res
+    assert "MAJOR" in res
+    assert "LIFE_THREATENING" in res
 
-def test_print_statistics(capsys):
+
+def test_output_parse3(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.MISSING,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+    )
+    res = output_parser.format_status(mr)
+    assert ": 0" in res
+    assert "90" in res
+    assert "110" in res
+    assert "120" in res
+    assert "MISSING" in res
+    assert "OK" in res
+
+
+def test_output_parse4(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.MISSING,
+        entity.StatusEnum.OK,
+    )
+    res = output_parser.format_status(mr)
+    assert "Blood pressure 0/" in res
+    assert "100" in res
+    assert "90" in res
+    assert "120" in res
+    assert "MISSING" in res
+    assert "OK" in res
+
+
+def test_output_parse5(capsys):
+    m = entity.Measurement(90, 100, 110, 120)
+    mr = entity.MeasurementResult(
+        m,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.OK,
+        entity.StatusEnum.MISSING,
+    )
+    res = output_parser.format_status(mr)
+    assert "0 mm Hg," in res
+    assert "100" in res
+    assert "90" in res
+    assert "110" in res
+    assert "MISSING" in res
+    assert "OK" in res
+
+
+def test_format_statistics(capsys):
     oxygen = entity.MeasurementStatistics(1, 2, 3, 4, 5)
     pulse = entity.MeasurementStatistics(10, 20, 30, 40, 50)
     bps = entity.MeasurementStatistics(100, 200, 300, 400, 500)

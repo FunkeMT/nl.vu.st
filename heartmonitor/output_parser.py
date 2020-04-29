@@ -1,13 +1,6 @@
-from entity import (
-    StatusEnum,
-    MeasurementResult,
-    Measurement,
-    MeasurementStatistics,
-    Statistics,
-)
 from datetime import datetime
 import os
-
+import entity
 
 def format_statistics(s: Statistics) -> str:
     """
@@ -16,6 +9,7 @@ def format_statistics(s: Statistics) -> str:
     :param: s: statistics object
     :return: string object of the printed statistics
     """
+
     pulsestring = "Pulse statistics: \t\t"
     pulsecontent = format_measurement_statistics(s.pulse)
     oxygenstring = "Oxygen statistics: \t\t"
