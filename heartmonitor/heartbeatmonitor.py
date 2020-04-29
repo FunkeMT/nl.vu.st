@@ -49,10 +49,14 @@ def main(argv: List[str]):
 
     for m in entity.FileRecording(csv_location).get_iterator():
         measurement_results = processor.processing_agent(m, statistics)
-        logger.log(output_parser.print_status(measurement_results))
+        measurement_string = output_parser.format_status(measurement_results)
+        print(measurement_string)
+        logger.log(measurement_string)
         number_of_measurements += 1
         wait_on_new_measurement()
-    logger.log(output_parser.print_statistics(statistics))
+    stat_string = output_parser.format_statistics(statistics)
+    print(stat_string)
+    logger.log(stat_string)
     message_done = "Processed {nom} measurements".format(nom=number_of_measurements)
     logger.log(message_done)
     print(f"Processed {number_of_measurements} measurements")

@@ -1,24 +1,45 @@
 from datetime import datetime
-import sys, os
+import sys, os, errno
 
-LOGFOLDERNAME = "logs"
+LOG_FOLDER_NAME = "logs"
+no_logs = False
 
 
-def log(s: str):
+def log(message: str):
     """
     Writes a string in the log file
     Creates a logfile folder if this does not exists
     Creates a log for the current date if this does not exist
 
-    :param: s: String to be written
+    :param: message: message string to be written
+    :raises: IOError if the system is out of space
+    :raises: IOError if the system does not have permission to write
     """
-    if not os.path.exists(LOGFOLDERNAME):
-        os.makedirs(LOGFOLDERNAME)
-
+    global no_logs
+    if no_logs == True:
+        return
+    if not os.path.exists(LOG_FOLDER_NAME):
+        try:
+            os.makedirs(LOG_FOLDER_NAME)
+        except IOError as e:
+            if e.errno == errno.ENOMEM:
+                print("No space left on device to create logs!")
+                no_logs = True
+            elif e.errno == errno.EACCES:
+                print("No permission to create logs here!")
+                no_logs = True
     date = datetime.now().strftime("%d-%m-%y")
-    if os.path.exists(LOGFOLDERNAME + "/" + date):
-        writemode = "a"
-    else:
+    logfilename = LOG_FOLDER_NAME + os.path.sep + date
+    writemode = "a"
+    if os.path.exists(logfilename):
         writemode = "w"
-    logfile = open(LOGFOLDERNAME + "/" + date, writemode)
-    logfile.write(s)
+    try:
+        logfile = open(logfilename)
+        logfile.write(message)
+    except IOError as e:
+        if e.errno == errno.ENOMEM:
+            print("No space left on device to create logs!")
+            no_logs = True
+        elif e.errno == errno.EACCES:
+            print("No permission to create logs here!")
+            no_logs = True
