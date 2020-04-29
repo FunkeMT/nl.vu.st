@@ -29,6 +29,10 @@ jobs:
       with:
         name: Unix_latest_HB-Sim2020
         path: dist/HB-Sim2020
+    - uses: actions/upload-artifact@master
+      with:
+        name: Unix_latest_HB-Sim2020
+        path: heartmonitor/input/simulation.csv
         
   build-macos:
     runs-on: macOS-latest
@@ -51,6 +55,10 @@ jobs:
       with:
         name: MacOS_latest_HB-Sim2020
         path: dist/HB-Sim2020
+    - uses: actions/upload-artifact@master
+      with:
+        name: MacOS_latest_HB-Sim2020
+        path: heartmonitor/input/simulation.csv
         
   build-windows:
     runs-on: windows-latest
@@ -74,3 +82,7 @@ jobs:
       with:
         name: Windows_latest_HB-Sim2020
         path: dist/HB-Sim2020.exe
+    - uses: actions/upload-artifact@master
+      with:
+        name: Windows_latest_HB-Sim2020
+        path: heartmonitor/input/simulation.csv
