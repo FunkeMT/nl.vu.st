@@ -633,11 +633,77 @@ def test_pulse_analysis4(capsys):
     assert stats.missing_count == 1
 
 
-def test_oxygen_measure(capsys):
+def test_pulse_analysis5(capsys):
+    """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis(-1, stats)
+    assert stats.missing_count == 1
+
+
+def test_pulse_analysis6(capsys):
+    """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis(0, stats)
+    assert stats.missing_count == 1
+
+
+def test_pulse_analysis7(capsys):
+    """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.life_threatening_count == 0
+    assert entity.StatusEnum.LIFE_THREATENING == processor.pulse_analysis(1, stats)
+    assert stats.life_threatening_count == 1
+
+
+def test_pulse_analysis8(capsys):
+    """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis(230, stats)
+    assert stats.missing_count == 1
+
+
+def test_pulse_analysis9(capsys):
+    """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.life_threatening_count == 0
+    assert entity.StatusEnum.LIFE_THREATENING == processor.pulse_analysis(229, stats)
+    assert stats.life_threatening_count == 1
+
+
+def test_pulse_analysis10(capsys):
+    """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
+    assert stats.missing_count == 0
+    assert entity.StatusEnum.MISSING == processor.pulse_analysis(231, stats)
+    assert stats.missing_count == 1
+
+
+def test_oxygen_measure1(capsys):
+    assert processor.oxygen_valuation(96) == entity.StatusEnum.OK
     assert processor.oxygen_valuation(95) == entity.StatusEnum.OK
+    assert processor.oxygen_valuation(94) == entity.StatusEnum.MINOR
+
+
+def test_oxygen_measure2(capsys):
+    assert processor.oxygen_valuation(89) == entity.StatusEnum.MAJOR
     assert processor.oxygen_valuation(90) == entity.StatusEnum.MINOR
+    assert processor.oxygen_valuation(91) == entity.StatusEnum.MINOR
+
+
+def test_oxygen_measure3(capsys):
+    assert processor.oxygen_valuation(59) == entity.StatusEnum.LIFE_THREATENING
     assert processor.oxygen_valuation(61) == entity.StatusEnum.MAJOR
+    assert processor.oxygen_valuation(62) == entity.StatusEnum.MAJOR
+
+
+def test_oxygen_measure4(capsys):
     assert processor.oxygen_valuation(6) == entity.StatusEnum.LIFE_THREATENING
+    assert processor.oxygen_valuation(1) == entity.StatusEnum.LIFE_THREATENING
+    assert processor.oxygen_valuation(0) == entity.StatusEnum.LIFE_THREATENING
+    assert processor.oxygen_valuation(-1) == entity.StatusEnum.LIFE_THREATENING
 
 
 def test_systolic_blood_validation(capsys):
