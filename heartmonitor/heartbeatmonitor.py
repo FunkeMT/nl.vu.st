@@ -46,25 +46,28 @@ def main(argv: List[str]):
     )
 
     number_of_measurements = 0
-
-    recording = None  # type: entity.FileRecording
     try:
-        recording = entity.FileRecording(csv_location).get_iterator()
-    except:
-        print_help()
-        sys.exit(1)
-
-    while True:
-        m = None  # type: entity.Measurement
+        recording = None  # type: entity.FileRecording
         try:
-            m = recording.__next__(make_invalid_measurement_missing=True)
-        except StopIteration:
-            break
+            recording = entity.FileRecording(csv_location).get_iterator()
+        except:
+            print_help()
+            sys.exit(1)
 
-        measurement_results = processor.processing_agent(m, statistics)
-        output_parser.print_status(measurement_results)
-        number_of_measurements += 1
-        wait_on_new_measurement()
+        while True:
+            m = None  # type: entity.Measurement
+            try:
+                m = recording.__next__(make_invalid_measurement_missing=True)
+            except StopIteration:
+                break
+
+            measurement_results = processor.processing_agent(m, statistics)
+            output_parser.print_status(measurement_results)
+            number_of_measurements += 1
+            wait_on_new_measurement()
+    except KeyboardInterrupt:
+        # When someone wants to stop the program prematurely.
+        pass
     output_parser.print_statistics(statistics)
     print(f"Processed {number_of_measurements} measurements")
 
