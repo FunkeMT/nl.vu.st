@@ -46,6 +46,6 @@ def test_logger2(capsys):
     logfile = open(logfilename, "r")
     lines = logfile.readlines()
     assert lines[0] == "abc\n"
-    assert lines[1] == "abc"
+    assert lines[2] == "abc\n"
     os.remove(logfilename)
     os.rmdir(LOG_FOLDER_NAME)
