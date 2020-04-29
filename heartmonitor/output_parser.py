@@ -2,7 +2,8 @@ from datetime import datetime
 import os
 import entity
 
-def format_statistics(s: Statistics) -> str:
+
+def format_statistics(s: entity.Statistics) -> str:
     """
     Formats the statistics with color for status
     
@@ -38,7 +39,7 @@ def format_statistics(s: Statistics) -> str:
     )
 
 
-def format_measurement_statistics(ms: MeasurementStatistics) -> str:
+def format_measurement_statistics(ms: entity.MeasurementStatistics) -> str:
     """
     formats a MeasuremenStatistics object with color for status
     
@@ -56,7 +57,7 @@ def format_measurement_statistics(ms: MeasurementStatistics) -> str:
     return statisticsstring
 
 
-def format_status(mr: MeasurementResult) -> str:
+def format_status(mr: entity.MeasurementResult) -> str:
     """
     Formats measurement results
 

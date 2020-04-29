@@ -44,7 +44,6 @@ def main(argv: List[str]):
     statistics = entity.Statistics(
         oxygen_ms, pulse_ms, blood_pressure_systolic_ms, blood_pressure_diastolic_ms
     )
-
     number_of_measurements = 0
     try:
         recording = None  # type: entity.FileRecording
@@ -61,18 +60,18 @@ def main(argv: List[str]):
             except StopIteration:
                 break
 
-    for m in entity.FileRecording(csv_location).get_iterator():
-        measurement_results = processor.processing_agent(m, statistics)
-        measurement_string = output_parser.format_status(measurement_results)
-        print(measurement_string, , flush=True)
-        logger.log(measurement_string)
-        number_of_measurements += 1
-        wait_on_new_measurement()
-    stat_string = output_parser.format_statistics(statistics)
-    print(stat_string, , flush=True)
-    logger.log(stat_string)
-    message_done = "Processed {nom} measurements".format(nom=number_of_measurements)
-    logger.log(message_done)
+            measurement_results = processor.processing_agent(m, statistics)
+            result_string = output_parser.format_status(measurement_results)
+            print(result_string, flush=True)
+            logger.log(result_string)
+            number_of_measurements += 1
+            wait_on_new_measurement()
+    except KeyboardInterrupt:
+        # When someone wants to stop the program prematurely.
+        pass
+    statistics_string = output_parser.format_statistics(statistics)
+    print(statistics_string, flush=True)
+    logger.log(statistics_string)
     print(f"Processed {number_of_measurements} measurements")
 
 
