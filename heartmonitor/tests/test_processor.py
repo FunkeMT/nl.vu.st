@@ -9,6 +9,47 @@ m3 = entity.Measurement(36, 0, 1, 44)
 m4 = entity.Measurement(234, 36, 453, 24)
 mock = entity.MockRecording([m1, m2, m3, m4])
 
+def test_processing_agent1(capsys):
+    m = entity.Measurement()
+    statistics = entity.Statistics(entity.MeasurementStatistics(),
+        entity.MeasurementStatistics(),
+        entity.MeasurementStatistics(),
+        entity.MeasurementStatistics())
+    assert m.blood_pressure_diastolic is None
+    assert m.blood_pressure_systolic is None
+    assert m.oxygen is None
+    assert m.pulse is None
+    measurement_results = processor.processing_agent(m, statistics) # entity.MeasurementResult
+    assert measurement_results.m == m
+    assert measurement_results.m.blood_pressure_diastolic is None
+    assert measurement_results.m.blood_pressure_systolic is None
+    assert measurement_results.m.oxygen is None
+    assert measurement_results.m.pulse is None
+    assert measurement_results.blood_pressure_diastolic_status == entity.StatusEnum.MISSING
+    assert measurement_results.blood_pressure_systolic_status == entity.StatusEnum.MISSING
+    assert measurement_results.oxygen_status == entity.StatusEnum.MISSING
+    assert measurement_results.pulse_status == entity.StatusEnum.MISSING
+
+def test_processing_agent2(capsys):
+    m = entity.Measurement(95, 90, 100, 70)
+    statistics = entity.Statistics(entity.MeasurementStatistics(),
+        entity.MeasurementStatistics(),
+        entity.MeasurementStatistics(),
+        entity.MeasurementStatistics())
+    assert m.blood_pressure_diastolic == 70
+    assert m.blood_pressure_systolic == 100
+    assert m.oxygen == 95
+    assert m.pulse == 90
+    measurement_results = processor.processing_agent(m, statistics) # entity.MeasurementResult
+    assert measurement_results.m == m
+    assert measurement_results.m.blood_pressure_diastolic == 70
+    assert measurement_results.m.blood_pressure_systolic == 100
+    assert measurement_results.m.oxygen == 95
+    assert measurement_results.m.pulse == 90
+    assert measurement_results.blood_pressure_diastolic_status == entity.StatusEnum.OK
+    assert measurement_results.blood_pressure_systolic_status == entity.StatusEnum.OK
+    assert measurement_results.oxygen_status == entity.StatusEnum.OK
+    assert measurement_results.pulse_status == entity.StatusEnum.OK
 
 def test_oxygen_validation1(capsys):
     assert not processor.oxygen_validation(-1)
