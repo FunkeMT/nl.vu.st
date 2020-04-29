@@ -11,7 +11,7 @@ import os
 
 def format_statistics(s: Statistics) -> str:
     """
-    Prints the statistics with color for status
+    Formats the statistics with color for status
     
     :param: s: statistics object
     :return: string object of the printed statistics
@@ -24,7 +24,7 @@ def format_statistics(s: Statistics) -> str:
     systoliccontent = format_measurement_statistics(s.blood_pressure_systolic)
     diastolicstring = "Blood pressure diastolic statistics: \t"
     diastoliccontent = format_measurement_statistics(s.blood_pressure_diastolic)
-    finishedstring = "Simulation Finished: \t"
+    finishedstring = "Simulation Finished"
 
     return (
         pulsestring
@@ -40,12 +40,13 @@ def format_statistics(s: Statistics) -> str:
         + diastoliccontent
         + os.linesep
         + finishedstring
+        + os.linesep
     )
 
 
 def format_measurement_statistics(ms: MeasurementStatistics) -> str:
     """
-    Prints a MeasuremenStatistics object with color for status
+    formats a MeasuremenStatistics object with color for status
     
     :param: ms: MeasurementStatistics object
     :return: string object of the printed values
@@ -63,7 +64,7 @@ def format_measurement_statistics(ms: MeasurementStatistics) -> str:
 
 def format_status(mr: MeasurementResult) -> str:
     """
-    Prints measurement results
+    Formats measurement results
 
     "param" mr: MeasurementResult object
     "return" the string that is printed to the screen

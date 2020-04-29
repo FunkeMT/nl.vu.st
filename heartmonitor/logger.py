@@ -1,7 +1,7 @@
 from datetime import datetime
-import sys, os, errno
+import sys, os, errno, pathlib
 
-LOG_FOLDER_NAME = "logs"
+LOG_FOLDER_NAME = str(pathlib.Path(__file__).parent.absolute()) + os.path.sep + "logs"
 no_logs = False
 
 
@@ -22,24 +22,23 @@ def log(message: str):
         try:
             os.makedirs(LOG_FOLDER_NAME)
         except IOError as e:
-            if e.errno == errno.ENOMEM:
-                print("No space left on device to create logs!")
-                no_logs = True
-            elif e.errno == errno.EACCES:
-                print("No permission to create logs here!")
-                no_logs = True
+            log_error(e)
     date = datetime.now().strftime("%d-%m-%y")
     logfilename = LOG_FOLDER_NAME + os.path.sep + date
-    writemode = "a"
+    writemode = "w"
     if os.path.exists(logfilename):
-        writemode = "w"
+        writemode = "a"
     try:
-        logfile = open(logfilename)
+        logfile = open(logfilename, writemode)
         logfile.write(message)
     except IOError as e:
-        if e.errno == errno.ENOMEM:
-            print("No space left on device to create logs!")
-            no_logs = True
-        elif e.errno == errno.EACCES:
-            print("No permission to create logs here!")
-            no_logs = True
+        log_error(e)
+
+
+def log_error(e: errno):
+    if e.errno == errno.ENOMEM:
+        print("No space left on device to create logs!")
+        no_logs = True
+    elif e.errno == errno.EACCES:
+        print("No permission to create logs here!")
+        no_logs = True
