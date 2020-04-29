@@ -125,5 +125,5 @@ def print_status(mr: MeasurementResult):
             get_severity_color(mr.blood_pressure_diastolic_status),
             mr.blood_pressure_diastolic_status.value,
             post_status,
-        ), flush=True
+        ), flush=True #flushes the buffer which caused a problem where the sleep function didn't work (in Git Bash)
     )
