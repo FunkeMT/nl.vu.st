@@ -30,7 +30,7 @@ def log(message: str):
         writemode = "a"
     try:
         logfile = open(logfilename, writemode)
-        logfile.write(message)
+        logfile.write(message + os.linesep)
         logfile.close()
     except IOError as e:
         log_error(e)
