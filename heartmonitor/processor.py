@@ -138,7 +138,7 @@ def pulse_analysis(
 
 
 def blood_pressure_systolic_analysis(
-    blood_pressure_systolic, measurement_statistics
+    blood_pressure_systolic: int, measurement_statistics: entity.MeasurementStatistics
 ) -> entity.StatusEnum:
     """
     Checks validation and valuation and increment status in statistics of
@@ -146,7 +146,7 @@ def blood_pressure_systolic_analysis(
 
     :param: blood_pressure_systolic The systolic blood pressure level to analyse.
     :param: measurement_statistics The statistics to update with the analysis.
-    :return The result of the analysis.
+    :return: The result of the analysis.
     """
 
     if not blood_pressure_systolic_validation(blood_pressure_systolic):
@@ -163,7 +163,7 @@ def blood_pressure_systolic_validation(blood_pressure_systolic: int) -> bool:
     Checks if it is an integer and if the number is between -1 and 251.
 
     :param: blood_pressure_systolic: The blood pressure to check.
-    :return True if a valid value was given.
+    :return: True if a valid value was given.
     """
 
     if not str(blood_pressure_systolic).isnumeric() or isinstance(blood_pressure_systolic, str):
@@ -172,7 +172,10 @@ def blood_pressure_systolic_validation(blood_pressure_systolic: int) -> bool:
     return int(blood_pressure_systolic) < 251 and int(blood_pressure_systolic) >= 0
 
 
-def blood_pressure_systolic_valuation(blood_pressure_systolic: int) -> entity.StatusEnum:
+
+def blood_pressure_systolic_valuation(
+    blood_pressure_systolic: int,
+) -> entity.StatusEnum:
     """
     Checks different values to assign a status to.
 
@@ -196,7 +199,7 @@ def blood_pressure_systolic_valuation(blood_pressure_systolic: int) -> entity.St
 
 
 def blood_pressure_diastolic_analysis(
-    blood_pressure_diastolic, measurement_statistics
+    blood_pressure_diastolic: int, measurement_statistics: entity.MeasurementStatistics
 ) -> entity.StatusEnum:
     """
     Checks validation and valuation and increment status in statistics of
@@ -216,7 +219,7 @@ def blood_pressure_diastolic_analysis(
     return status
 
 
-def blood_pressure_diastolic_validation(blood_pressure_diastolic) -> bool:
+def blood_pressure_diastolic_validation(blood_pressure_diastolic: int) -> bool:
     """
     Checks if it is an integer and if the number is between -1 and 141.
 
@@ -230,7 +233,9 @@ def blood_pressure_diastolic_validation(blood_pressure_diastolic) -> bool:
     return int(blood_pressure_diastolic) < 141 and int(blood_pressure_diastolic) >= 0
 
 
-def blood_pressure_diastolic_valuation(blood_pressure_diastolic) -> entity.StatusEnum:
+def blood_pressure_diastolic_valuation(
+    blood_pressure_diastolic: int,
+) -> entity.StatusEnum:
     """
     Checks different values to assign a status to.
 

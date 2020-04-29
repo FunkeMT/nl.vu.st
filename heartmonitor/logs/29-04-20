@@ -1,0 +1,49 @@
+[29-04-20 16:09:07] | Pulse: 70 bpm, status: OK | SaO2: 80% status: MAJOR | Blood pressure: 100/80 mm Hg, Systolic status: OK, Diastolic status: OK
+[29-04-20 16:09:07] | Pulse: 60 bpm, status: OK | SaO2: 90% status: MINOR | Blood pressure: 90/50 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:09:08] | Pulse: 90 bpm, status: OK | SaO2: 50% status: LIFE_THREATENING | Blood pressure: 120/80 mm Hg, Systolic status: OK, Diastolic status: OK
+[29-04-20 16:09:09] | Pulse: 40 bpm, status: MAJOR | SaO2: 90% status: MINOR | Blood pressure: 140/80 mm Hg, Systolic status: MAJOR, Diastolic status: OK
+[29-04-20 16:09:09] | Pulse: 50 bpm, status: MINOR | SaO2: 60% status: LIFE_THREATENING | Blood pressure: 150/40 mm Hg, Systolic status: MAJOR, Diastolic status: MAJOR
+Pulse statistics: 		[OK: 3;		MISSING: 0;		MINOR: 1;		MAJOR: 1;		LIFE_THREATENING: 0]
+Oxygen statistics: 		[OK: 0;		MISSING: 0;		MINOR: 2;		MAJOR: 1;		LIFE_THREATENING: 2]
+Blood pressure systolic statistics: 	[OK: 3;		MISSING: 0;		MINOR: 0;		MAJOR: 2;		LIFE_THREATENING: 0]
+Blood pressure diastolic statistics: 	[OK: 3;		MISSING: 0;		MINOR: 1;		MAJOR: 1;		LIFE_THREATENING: 0]
+Simulation Finished
+Processed 5 measurements[29-04-20 16:44:38] | Pulse: 2 bpm, status: LIFE_THREATENING | SaO2: 1% status: LIFE_THREATENING | Blood pressure: None/4 mm Hg, Systolic status: MISSING, Diastolic status: LIFE_THREATENING
+[29-04-20 16:44:38] | Pulse: 2 bpm, status: LIFE_THREATENING | SaO2: 1% status: LIFE_THREATENING | Blood pressure: None/4 mm Hg, Systolic status: MISSING, Diastolic status: LIFE_THREATENING
+[29-04-20 16:44:45] | Pulse: 2 bpm, status: LIFE_THREATENING | SaO2: 1% status: LIFE_THREATENING | Blood pressure: None/4 mm Hg, Systolic status: MISSING, Diastolic status: LIFE_THREATENING
+[29-04-20 16:44:45] | Pulse: 2 bpm, status: LIFE_THREATENING | SaO2: 1% status: LIFE_THREATENING | Blood pressure: None/4 mm Hg, Systolic status: MISSING, Diastolic status: LIFE_THREATENING
+[29-04-20 16:44:53] | Pulse: None bpm, status: MISSING | SaO2: 1% status: LIFE_THREATENING | Blood pressure: 3/4 mm Hg, Systolic status: LIFE_THREATENING, Diastolic status: LIFE_THREATENING
+[29-04-20 16:44:53] | Pulse: None bpm, status: MISSING | SaO2: 1% status: LIFE_THREATENING | Blood pressure: 3/4 mm Hg, Systolic status: LIFE_THREATENING, Diastolic status: LIFE_THREATENING
+[29-04-20 16:44:57] | Pulse: None bpm, status: MISSING | SaO2: None% status: MISSING | Blood pressure: None/None mm Hg, Systolic status: MISSING, Diastolic status: MISSING
+[29-04-20 16:44:57] | Pulse: None bpm, status: MISSING | SaO2: None% status: MISSING | Blood pressure: None/None mm Hg, Systolic status: MISSING, Diastolic status: MISSING
+[29-04-20 16:45:01] | Pulse: 70 bpm, status: OK | SaO2: 80% status: MAJOR | Blood pressure: 100/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:45:02] | Pulse: 60 bpm, status: OK | SaO2: 90% status: MINOR | Blood pressure: 90/50 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:45:03] | Pulse: 90 bpm, status: OK | SaO2: 50% status: LIFE_THREATENING | Blood pressure: 120/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:45:04] | Pulse: 40 bpm, status: MAJOR | SaO2: 90% status: MINOR | Blood pressure: 140/80 mm Hg, Systolic status: MAJOR, Diastolic status: MINOR
+[29-04-20 16:45:05] | Pulse: 50 bpm, status: MINOR | SaO2: 60% status: LIFE_THREATENING | Blood pressure: 150/40 mm Hg, Systolic status: MAJOR, Diastolic status: MAJOR
+[29-04-20 16:45:05] | Pulse: 50 bpm, status: MINOR | SaO2: 60% status: LIFE_THREATENING | Blood pressure: 150/40 mm Hg, Systolic status: MAJOR, Diastolic status: MAJOR
+[29-04-20 16:45:52] | Pulse: 70 bpm, status: OK | SaO2: 80% status: MAJOR | Blood pressure: 100/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:45:53] | Pulse: 60 bpm, status: OK | SaO2: 90% status: MINOR | Blood pressure: 90/50 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:45:54] | Pulse: 90 bpm, status: OK | SaO2: 50% status: LIFE_THREATENING | Blood pressure: 120/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:45:55] | Pulse: 40 bpm, status: MAJOR | SaO2: 90% status: MINOR | Blood pressure: 140/80 mm Hg, Systolic status: MAJOR, Diastolic status: MINOR
+[29-04-20 16:45:56] | Pulse: 50 bpm, status: MINOR | SaO2: 60% status: LIFE_THREATENING | Blood pressure: 150/40 mm Hg, Systolic status: MAJOR, Diastolic status: MAJOR
+[29-04-20 16:46:13] | Pulse: 70 bpm, status: OK | SaO2: 80% status: MAJOR | Blood pressure: 100/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:46:14] | Pulse: 60 bpm, status: OK | SaO2: 90% status: MINOR | Blood pressure: 90/50 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:46:15] | Pulse: 90 bpm, status: OK | SaO2: 50% status: LIFE_THREATENING | Blood pressure: 120/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:46:16] | Pulse: 40 bpm, status: MAJOR | SaO2: 90% status: MINOR | Blood pressure: 140/80 mm Hg, Systolic status: MAJOR, Diastolic status: MINOR
+[29-04-20 16:46:17] | Pulse: 50 bpm, status: MINOR | SaO2: 60% status: LIFE_THREATENING | Blood pressure: 150/40 mm Hg, Systolic status: MAJOR, Diastolic status: MAJOR
+Pulse statistics: 		[OK: 3;		MISSING: 0;		MINOR: 1;		MAJOR: 1;		LIFE_THREATENING: 0]
+Oxygen statistics: 		[OK: 0;		MISSING: 0;		MINOR: 2;		MAJOR: 1;		LIFE_THREATENING: 2]
+Blood pressure systolic statistics: 	[OK: 3;		MISSING: 0;		MINOR: 0;		MAJOR: 2;		LIFE_THREATENING: 0]
+Blood pressure diastolic statistics: 	[OK: 0;		MISSING: 0;		MINOR: 4;		MAJOR: 1;		LIFE_THREATENING: 0]
+Simulation Finished
+[29-04-20 16:52:35] | Pulse: 70 bpm, status: OK | SaO2: 80% status: MAJOR | Blood pressure: 100/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:52:36] | Pulse: 60 bpm, status: OK | SaO2: 90% status: MINOR | Blood pressure: 90/50 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:52:37] | Pulse: 90 bpm, status: OK | SaO2: 50% status: LIFE_THREATENING | Blood pressure: 120/80 mm Hg, Systolic status: OK, Diastolic status: MINOR
+[29-04-20 16:52:38] | Pulse: 40 bpm, status: MAJOR | SaO2: 90% status: MINOR | Blood pressure: 140/80 mm Hg, Systolic status: MAJOR, Diastolic status: MINOR
+[29-04-20 16:52:39] | Pulse: 50 bpm, status: MINOR | SaO2: 60% status: LIFE_THREATENING | Blood pressure: 150/40 mm Hg, Systolic status: MAJOR, Diastolic status: MAJOR
+Pulse statistics: 		[OK: 3;		MISSING: 0;		MINOR: 1;		MAJOR: 1;		LIFE_THREATENING: 0]
+Oxygen statistics: 		[OK: 0;		MISSING: 0;		MINOR: 2;		MAJOR: 1;		LIFE_THREATENING: 2]
+Blood pressure systolic statistics: 	[OK: 3;		MISSING: 0;		MINOR: 0;		MAJOR: 2;		LIFE_THREATENING: 0]
+Blood pressure diastolic statistics: 	[OK: 0;		MISSING: 0;		MINOR: 4;		MAJOR: 1;		LIFE_THREATENING: 0]
+Simulation Finished
