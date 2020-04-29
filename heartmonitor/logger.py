@@ -31,14 +31,16 @@ def log(message: str):
     try:
         logfile = open(logfilename, writemode)
         logfile.write(message)
+        logfile.close()
     except IOError as e:
         log_error(e)
 
 
 def log_error(e: errno):
+    global no_logs
     if e.errno == errno.ENOMEM:
         print("No space left on device to create logs!")
         no_logs = True
     elif e.errno == errno.EACCES:
-        print("No permission to create logs here!")
+        print("No permission to create logs!")
         no_logs = True
