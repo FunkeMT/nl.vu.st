@@ -158,7 +158,7 @@ def blood_pressure_systolic_analysis(
     return status
 
 
-def blood_pressure_systolic_validation(blood_pressure_systolic) -> bool:
+def blood_pressure_systolic_validation(blood_pressure_systolic: int) -> bool:
     """
     Checks if it is an integer and if the number is between -1 and 251.
 
@@ -172,7 +172,7 @@ def blood_pressure_systolic_validation(blood_pressure_systolic) -> bool:
     return int(blood_pressure_systolic) < 251 and int(blood_pressure_systolic) >= 0
 
 
-def blood_pressure_systolic_valuation(blood_pressure_systolic) -> entity.StatusEnum:
+def blood_pressure_systolic_valuation(blood_pressure_systolic: int) -> entity.StatusEnum:
     """
     Checks different values to assign a status to.
 
@@ -187,7 +187,7 @@ def blood_pressure_systolic_valuation(blood_pressure_systolic) -> entity.StatusE
         return entity.StatusEnum.MAJOR
     elif blood_pressure_systolic < 60:
         return entity.StatusEnum.MAJOR
-    elif blood_pressure_systolic > 130:
+    elif blood_pressure_systolic >= 130:
         return entity.StatusEnum.MINOR
     elif blood_pressure_systolic < 90:
         return entity.StatusEnum.MINOR
@@ -246,7 +246,7 @@ def blood_pressure_diastolic_valuation(blood_pressure_diastolic) -> entity.Statu
         return entity.StatusEnum.MAJOR
     elif blood_pressure_diastolic < 50:
         return entity.StatusEnum.MAJOR
-    elif blood_pressure_diastolic > 80:
+    elif blood_pressure_diastolic >= 80:
         return entity.StatusEnum.MINOR
     elif blood_pressure_diastolic < 60:
         return entity.StatusEnum.MINOR
