@@ -481,27 +481,35 @@ def test_pulse_analysis_determine16(capsys):
     assert processor._pulse_analysis_determine(59) == entity.StatusEnum.MINOR
 
 
+
 def test_pulse_analysis1(capsys):
     """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
     happend = False
+    msg = ""
     try:
-        processor.pulse_analysis("a", None)
-    except TypeError:
+        processor.pulse_analysis("a", stats)
+    except TypeError as ex:
+        msg = str(ex)
         happend = True
 
+    assert "Pulse should be a whole positive number" in msg
     assert happend
 
 
 def test_pulse_analysis2(capsys):
     """Testing pulse_analysis"""
+    stats = entity.MeasurementStatistics()
     happend = False
+    msg = ""
     try:
-        processor.pulse_analysis("9", None)
-    except TypeError:
+        processor.pulse_analysis("9", stats)
+    except TypeError as ex:
+        msg = str(ex)
         happend = True
 
+    assert "Pulse should be a whole positive number" in msg
     assert happend
-
 
 def test_pulse_analysis11(capsys):
     """Testing test_pulse_analysis_determine"""
@@ -514,13 +522,16 @@ def test_pulse_analysis11(capsys):
 def test_pulse_analysis12(capsys):
     """Testing test_pulse_analysis_determine"""
     happend = False
+    msg = ""
     try:
         stats = entity.MeasurementStatistics()
         processor.pulse_analysis(-1, stats)
-    except TypeError:
+    except TypeError as ex:
+        msg = str(ex)
         happend = True
-    assert happend
 
+    assert "Pulse should be a whole positive number" in msg
+    assert happend
 
 def test_pulse_analysis13(capsys):
     """Testing test_pulse_analysis_determine"""

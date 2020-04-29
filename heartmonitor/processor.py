@@ -129,10 +129,9 @@ def pulse_analysis(
     :raises: TypeError When an non numeric pulse was given.
     """
     result = entity.StatusEnum.MISSING
-    if not str(pulse).isnumeric():
+    if not str(pulse).isnumeric() or isinstance(pulse, str):
         raise TypeError("Pulse should be a whole positive number")
-
-    if str(pulse).isnumeric() and 0 < pulse < 230:
+    elif str(pulse).isnumeric() and 0 < pulse < 230:
         result = _pulse_analysis_determine(pulse)
 
     measurement_statistics.increment(result)
