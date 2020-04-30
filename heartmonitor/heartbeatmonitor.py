@@ -10,6 +10,7 @@ MILLISECONDS_IN_SECOND = 1000
 
 help_message_shown_lock = Lock()
 help_message_shown = False
+handled_signal_handler = False
 
 def wait_on_new_measurement():
     """
@@ -18,7 +19,8 @@ def wait_on_new_measurement():
     :raises: KeyboardInterrupt When some tried to stop the application.
     :raises: Exception When a thread error occured.
     """
-    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILLISECONDS_IN_SECOND)
+    for _ in range(0, MEASUREMENT_INTERVAL_IN_MS):
+        time.sleep(1 / MILLISECONDS_IN_SECOND)
 
 
 def print_help():
@@ -58,6 +60,9 @@ def print_help():
 
 
 def signal_handler(sig, frame):  # pragma: no mutate
+    global handled_signal_handler
+    if handled_signal_handler: return
+    handled_signal_handler = True
     print_help()
     sys.exit(1)
 
