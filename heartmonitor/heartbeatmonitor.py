@@ -3,7 +3,6 @@ import sys
 from typing import List
 import time
 import signal
-import sys
 
 MEASUREMENT_INTERVAL_IN_MS = 1000
 MILLISECONDS_IN_SECOND = 1000
