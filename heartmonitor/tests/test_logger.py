@@ -11,6 +11,8 @@ LOG_FOLDER_NAME = (
     + os.path.sep
     + "test_logs"
 )
+before_no_logs = logger.no_logs
+before_LOG_FOLDER_NAME = logger.LOG_FOLDER_NAME
 logger.LOG_FOLDER_NAME = (
     str(pathlib.Path(__file__).parent.absolute().parent.absolute())
     + os.path.sep
@@ -19,6 +21,20 @@ logger.LOG_FOLDER_NAME = (
 PARENT_FOLDER = (
     str(pathlib.Path(__file__).parent.absolute().parent.absolute()) + os.path.sep
 )
+
+
+def test_constants1(capsys):
+    required_location = (
+    str(pathlib.Path(__file__).parent.absolute().parent.absolute())
+    + os.path.sep
+    + "logs")
+    assert before_LOG_FOLDER_NAME == required_location
+    assert logger.LOG_FOLDER_NAME == LOG_FOLDER_NAME
+
+
+def test_control_vars(capsys):
+    assert before_no_logs == False
+    assert before_no_logs is not None
 
 
 def test_logger1(capsys):

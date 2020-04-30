@@ -22,7 +22,7 @@ def log(message: str):
         try:
             os.makedirs(LOG_FOLDER_NAME)
         except IOError as e:
-            log_error(e)
+            log_error(e)  # pragma: no mutate
     date = datetime.now().strftime("%d-%m-%y")
     logfilename = LOG_FOLDER_NAME + os.path.sep + date
     writemode = "w"
