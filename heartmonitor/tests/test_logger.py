@@ -23,7 +23,8 @@ PARENT_FOLDER = (
 
 def test_logger1(capsys):
     """Log folder doesn't exist"""
-    """MAKE SURE LOG FOLDER DOESN'T EXIST"""
+    if os.path.exists(LOG_FOLDER_NAME):
+        os.rmdir(LOG_FOLDER_NAME)
     assert not os.path.exists(LOG_FOLDER_NAME)
     date = datetime.now().strftime("%d-%m-%y")
     logger.log("abc" + os.linesep)
@@ -33,11 +34,16 @@ def test_logger1(capsys):
     logfile = open(logfilename, "r")
     lines = logfile.readlines()
     assert lines[0] == "abc\n"
+    os.remove(logfilename)
+    os.rmdir(LOG_FOLDER_NAME)
 
 
 def test_logger2(capsys):
     """Log folder does exist"""
-    """MAKE SURE LOG FOLDER DOES EXIST"""
+    if os.path.exists(LOG_FOLDER_NAME):
+        os.rmdir(LOG_FOLDER_NAME)
+    os.makedirs(LOG_FOLDER_NAME)
+    logger.log("abc" + os.linesep)
     assert os.path.exists(LOG_FOLDER_NAME)
     date = datetime.now().strftime("%d-%m-%y")
     logfilename = LOG_FOLDER_NAME + os.path.sep + date
