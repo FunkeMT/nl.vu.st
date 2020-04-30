@@ -65,7 +65,7 @@ class AbstractRecording:
     def __iter__(self):
         return self
 
-    def __next__(self):
+    def __next__(self, make_invalid_measurement_missing: bool=False) -> Measurement:
         raise StopIteration
 
 
