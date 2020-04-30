@@ -3,10 +3,14 @@ import sys
 from typing import List
 import time
 import signal
+from threading import Lock
 
 MEASUREMENT_INTERVAL_IN_MS = 1000
 MILLISECONDS_IN_SECOND = 1000
 
+help_message_shown_lock = Lock()
+help_message_shown = False
+handled_signal_handler = False
 
 def wait_on_new_measurement():
     """
@@ -15,13 +19,25 @@ def wait_on_new_measurement():
     :raises: KeyboardInterrupt When some tried to stop the application.
     :raises: Exception When a thread error occured.
     """
-    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILLISECONDS_IN_SECOND)
+    for _ in range(0, MEASUREMENT_INTERVAL_IN_MS):
+        time.sleep(1 / MILLISECONDS_IN_SECOND)
 
 
 def print_help():
     """
     Print help message.
     """
+    global help_message_shown
+    global help_message_shown_lock
+
+    help_message_shown_lock.acquire()
+
+    if help_message_shown:
+        help_message_shown_lock.release()
+        return
+
+    help_message_shown = True
+
     print("Usage: heartbeatmonitor.py [options] file")
     print("Options:")
     print("\t--path")
@@ -40,9 +56,13 @@ def print_help():
     print(
         "LIFE_THREATENING: A reading that is of interest to medical personnel because it can have severe effects on the chance of survival of the patient."
     )
+    help_message_shown_lock.release()
 
 
 def signal_handler(sig, frame):  # pragma: no mutate
+    global handled_signal_handler
+    if handled_signal_handler: return
+    handled_signal_handler = True
     print_help()
     sys.exit(1)
 
@@ -54,6 +74,7 @@ def main(argv: List[str]):
     except:
         print_help()
         sys.exit(1)
+        return
 
     # Create statistics
     oxygen_ms = entity.MeasurementStatistics()
@@ -71,6 +92,7 @@ def main(argv: List[str]):
         except:
             print_help()
             sys.exit(1)
+            return
 
         while True:
             m = None  # type: entity.Measurement
