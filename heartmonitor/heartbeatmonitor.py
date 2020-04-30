@@ -15,8 +15,7 @@ def wait_on_new_measurement():
     :raises: KeyboardInterrupt When some tried to stop the application.
     :raises: Exception When a thread error occured.
     """
-    for _ in range(0, MEASUREMENT_INTERVAL_IN_MS):
-        time.sleep(1 / MILLISECONDS_IN_SECOND)
+    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILLISECONDS_IN_SECOND)
 
 
 def print_help():
