@@ -17,6 +17,13 @@ def test_StatusEnum(capsys):
     assert "MINOR" in keys
     assert "MAJOR" in keys
     assert "LIFE_THREATENING" in keys
+
+    assert entity.StatusEnum.OK.value == "OK"
+    assert entity.StatusEnum.MISSING.value == "MISSING"
+    assert entity.StatusEnum.MINOR.value == "MINOR"
+    assert entity.StatusEnum.MAJOR.value == "MAJOR"
+    assert entity.StatusEnum.LIFE_THREATENING.value == "LIFE_THREATENING"
+
     assert 5 == len(keys)
 
 
@@ -165,14 +172,19 @@ def test_FileRecording7(capsys):
 
 def test_FileRecording8(capsys):
     """Testing FileRecording"""
-    happend = False
+    happend = False  # type: entity.FileRecording
+    fr = None
+    msg = ""
     try:
-        entity.FileRecording(
+        fr = entity.FileRecording(
             "heartmonitor/tests/test_files/file_recording/not_existing.csv"
         )
-    except Exception:
+    except entity.FileNotFound as ex:
+        msg = str(ex)
         happend = True
     assert happend
+    assert fr is None
+    assert msg == "Could not find recording file."
 
 
 def test_FileRecording9(capsys):
@@ -803,6 +815,88 @@ def test_FileRecording56(capsys):
     assert happend
 
 
+def test_FileRecording57(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._parse_field(["0", "54", "a"], 2, make_invalid_measurement_missing=True)
+    except ValueError:
+        happend = True
+    assert not happend
+
+
+def test_FileRecording58(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._parse_field(["0", "54", "a"], 2)
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording59(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(
+            ["a", "2", "3", "4"], make_invalid_measurement_missing=True
+        )
+    except ValueError:
+        happend = True
+    assert not happend
+
+
+def test_FileRecording60(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(
+            ["a", "2", "3", "4"], make_invalid_measurement_missing=False
+        )
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording61(capsys):
+    """Testing FileRecording"""
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_7.csv")
+    happend = False
+    try:
+        fr._line_to_measurement(["a", "2", "3", "4"])
+    except ValueError:
+        happend = True
+    assert happend
+
+
+def test_FileRecording62(capsys):
+    """Testing FileRecording"""
+    happend = False
+    data = None  # type: entity.Measurement
+    try:
+        fr = entity.FileRecording(
+            "heartmonitor/tests/test_files/file_recording/data_4.csv"
+        )
+        data = fr.__iter__().__next__(make_invalid_measurement_missing=True)
+    except StopIteration:
+        happend = True
+    assert not happend
+    assert data.pulse is None
+
+
+def test_FileRecording63(capsys):
+    """Testing FileRecording"""
+    happend = False
+    fr = entity.FileRecording("heartmonitor/tests/test_files/file_recording/data_4.csv")
+    data = fr.__iter__().__next__()  # type: entity.Measurement
+    assert data.pulse is None
+
+
 def test_MockRecording(capsys):
     """Testing entity MockRecording"""
     mr = entity.MockRecording([entity.Measurement(10)])
@@ -831,6 +925,19 @@ def test_MeasurementStatistics(capsys):
 def test_MeasurementStatistics(capsys):
     """Testing entity MeasurementStatistics"""
     ms = entity.MeasurementStatistics(0, 1, 2, 3, 4)
+
+    data = entity.StatusEnum.__dict__
+    for k in data:
+        if k.startswith("_"):
+            continue
+        prev_value = ms.__getattribute__(k.lower() + "_count")
+        ms.increment(data[k])
+        assert prev_value == ms.__getattribute__(k.lower() + "_count") - 1
+
+
+def test_MeasurementStatistics2(capsys):
+    """Testing entity MeasurementStatistics"""
+    ms = entity.MeasurementStatistics(10, 11, 12, 13, 14)
 
     data = entity.StatusEnum.__dict__
     for k in data:

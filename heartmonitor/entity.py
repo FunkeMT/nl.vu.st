@@ -65,7 +65,9 @@ class AbstractRecording:
     def __iter__(self):
         return self
 
-    def __next__(self, make_invalid_measurement_missing: bool = False) -> Measurement:
+    def __next__(
+        self, make_invalid_measurement_missing: bool = False
+    ) -> Measurement:  # pragma: no mutate
         raise StopIteration
 
 
@@ -82,7 +84,7 @@ class FileRecording(AbstractRecording):
         :raises: AssertionError When a header field was missing.
         :raises: Exception When the file could not be found.
         """
-        self._fpointer = None
+        self._fpointer = None  # pragma: no mutate
         self.filepath = filepath
         if not os.path.exists(filepath):
             raise FileNotFound("Could not find recording file.")
@@ -179,7 +181,9 @@ class FileRecording(AbstractRecording):
 
         return res
 
-    def __next__(self, make_invalid_measurement_missing: bool = False) -> Measurement:
+    def __next__(
+        self, make_invalid_measurement_missing: bool = False
+    ) -> Measurement:  # pragma: no mutate
         """
         Read the next measurement from file.
 
@@ -204,7 +208,9 @@ class FileRecording(AbstractRecording):
 
         :raises: Exception: When there was an error releasing the file handler.
         """
-        if self._fpointer is not None and not self._fpointer.closed:
+        if (
+            self._fpointer is not None and not self._fpointer.closed
+        ):  # pragma: no mutate
             self._fpointer.close()
 
 
