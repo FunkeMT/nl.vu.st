@@ -21,8 +21,9 @@ def print_help():
     """
     Print help message.
     """
-    print("Command usage is as follows:")
-    print("heartbeatmonitor.py --path str\tLocation of the CSV file")
+    print("Usage: heartbeatmonitor.py [options] file")
+    print("Options:")
+    print("\t--path")
     print("")
     print(
         "The system will generate a status for each measurement, these statuses should be interpreted as follows:"
