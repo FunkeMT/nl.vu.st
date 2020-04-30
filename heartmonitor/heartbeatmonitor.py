@@ -22,10 +22,22 @@ def print_help():
     Print help message.
     """
     print("Command usage is as follows:")
-    print("heartbeatmonitor.py arguments:")
+    print("heartbeatmonitor.py --path str\tLocation of the CSV file")
     print("")
-    print("Arguments are the following:")
-    print("  --path str\tLocation of the CSV file")
+    print(
+        "The system will generate a status for each measurement, these statuses should be interpreted as follows:"
+    )
+    print("OK:               A reading that is not considered dangerous.")
+    print("MISSING:          A reading that is not considered a valid reading.")
+    print(
+        "MINOR:            A reading that is of interest to medical personnel but cannot be considered a threat yet."
+    )
+    print(
+        "MAJOR:            A reading that is of interest to medical personnel and has to be considered a threat."
+    )
+    print(
+        "LIFE_THREATENING: A reading that is of interest to medical personnel because it can have severe effects on the chance of survival of the patient."
+    )
 
 
 def main(argv: List[str]):
