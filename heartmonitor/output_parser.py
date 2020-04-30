@@ -64,17 +64,31 @@ def format_status(mr: entity.MeasurementResult) -> str:
     "return" the string that is printed to the screen
     """
 
+    pulse = mr.m.pulse
+    oxygen = mr.m.oxygen
+    blood_pressure_diastolic = mr.m.blood_pressure_diastolic
+    blood_pressure_systolic = mr.m.blood_pressure_systolic
+
+    if mr.pulse_status == entity.StatusEnum.MISSING:
+        pulse = 0
+    if mr.oxygen_status == entity.StatusEnum.MISSING:
+        oxygen = 0
+    if mr.blood_pressure_systolic_status == entity.StatusEnum.MISSING:
+        blood_pressure_systolic = 0
+    if mr.blood_pressure_diastolic_status == entity.StatusEnum.MISSING:
+        blood_pressure_diastolic = 0
+
     now = datetime.now().strftime("%d-%m-%y %H:%M:%S")
     datestring = "[{time}]".format(time=now)
     pulsestring = "Pulse: {pulse:3} bpm, status: {pulse_status:17}".format(
-        pulse=mr.m.pulse, pulse_status=mr.pulse_status.value
+        pulse=pulse, pulse_status=mr.pulse_status.value
     )
     oxygenstring = "SaO2: {oxygen:2}% status: {oxygen_status:17}".format(
-        oxygen=mr.m.oxygen, oxygen_status=mr.oxygen_status.value
+        oxygen=oxygen, oxygen_status=mr.oxygen_status.value
     )
     bloodpressurestring = "Blood pressure: {systolic:3}/{diastolic:3} mm Hg, Systolic status: {systolic_status:17}| Diastolic status: {diastolic_status:17}".format(
-        systolic=mr.m.blood_pressure_systolic,
-        diastolic=mr.m.blood_pressure_diastolic,
+        systolic=blood_pressure_systolic,
+        diastolic=blood_pressure_diastolic,
         systolic_status=mr.blood_pressure_systolic_status.value,
         diastolic_status=mr.blood_pressure_diastolic_status.value,
     )
