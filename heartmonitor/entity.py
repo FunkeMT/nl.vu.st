@@ -65,11 +65,12 @@ class AbstractRecording:
     def __iter__(self):
         return self
 
-    def __next__(self, make_invalid_measurement_missing: bool=False) -> Measurement:
+    def __next__(self, make_invalid_measurement_missing: bool = False) -> Measurement:
         raise StopIteration
 
 
-class FileNotFound(Exception): pass
+class FileNotFound(Exception):
+    pass
 
 
 class FileRecording(AbstractRecording):
@@ -124,9 +125,12 @@ class FileRecording(AbstractRecording):
         assert "blood_pressure_systolic" in heading_parts
         assert "blood_pressure_diastolic" in heading_parts
 
-
-    def _parse_field(self, line: List[str], index: int,
-        make_invalid_measurement_missing: bool=False) -> int:
+    def _parse_field(
+        self,
+        line: List[str],
+        index: int,
+        make_invalid_measurement_missing: bool = False,
+    ) -> int:
         """
         Parse a CSV field into an int value.
 
@@ -141,14 +145,15 @@ class FileRecording(AbstractRecording):
         try:
             if line[index]:
                 result = int(line[index])
-        except ValueError as ex:
-            if not make_invalid_measurement_missing: raise ex
+        except (ValueError, IndexError) as ex:
+            if not make_invalid_measurement_missing:
+                raise ex
             result = None
         return result
 
-
-    def _line_to_measurement(self, line: List[str], 
-        make_invalid_measurement_missing: bool=False) -> Measurement:
+    def _line_to_measurement(
+        self, line: List[str], make_invalid_measurement_missing: bool = False
+    ) -> Measurement:
         """
         Convert a parsed CSV line to a measurement object.
 
@@ -159,18 +164,22 @@ class FileRecording(AbstractRecording):
                             set and an incorrect value was parsed.
         """
         res = Measurement()
-        res.oxygen = self._parse_field(line, self.index_oxygen,
-            make_invalid_measurement_missing)
-        res.pulse = self._parse_field(line, self.index_pulse,
-            make_invalid_measurement_missing)
-        res.blood_pressure_systolic = self._parse_field(line,
-            self.index_systolic, make_invalid_measurement_missing)
-        res.blood_pressure_diastolic = self._parse_field(line,
-            self.index_diastolic, make_invalid_measurement_missing)
+        res.oxygen = self._parse_field(
+            line, self.index_oxygen, make_invalid_measurement_missing
+        )
+        res.pulse = self._parse_field(
+            line, self.index_pulse, make_invalid_measurement_missing
+        )
+        res.blood_pressure_systolic = self._parse_field(
+            line, self.index_systolic, make_invalid_measurement_missing
+        )
+        res.blood_pressure_diastolic = self._parse_field(
+            line, self.index_diastolic, make_invalid_measurement_missing
+        )
 
         return res
 
-    def __next__(self, make_invalid_measurement_missing: bool=False) -> Measurement:
+    def __next__(self, make_invalid_measurement_missing: bool = False) -> Measurement:
         """
         Read the next measurement from file.
 
