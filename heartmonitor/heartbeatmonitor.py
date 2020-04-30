@@ -2,6 +2,8 @@ import argv_parser, entity, processor, output_parser, logger
 import sys
 from typing import List
 import time
+import signal
+import sys
 
 MEASUREMENT_INTERVAL_IN_MS = 1000
 MILLISECONDS_IN_SECOND = 1000
@@ -14,7 +16,8 @@ def wait_on_new_measurement():
     :raises: KeyboardInterrupt When some tried to stop the application.
     :raises: Exception When a thread error occured.
     """
-    time.sleep(MEASUREMENT_INTERVAL_IN_MS / MILLISECONDS_IN_SECOND)
+    for _ in range(0, MEASUREMENT_INTERVAL_IN_MS):
+        time.sleep(1 / MILLISECONDS_IN_SECOND)
 
 
 def print_help():
@@ -39,6 +42,11 @@ def print_help():
     print(
         "LIFE_THREATENING: A reading that is of interest to medical personnel because it can have severe effects on the chance of survival of the patient."
     )
+
+
+def signal_handler(sig, frame):  # pragma: no mutate
+    print_help()
+    sys.exit(1)
 
 
 def main(argv: List[str]):
@@ -89,4 +97,5 @@ def main(argv: List[str]):
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal_handler)
     main(sys.argv)
