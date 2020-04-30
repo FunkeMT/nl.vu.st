@@ -38,7 +38,7 @@ def log(message: str):
 
 def log_error(e: errno):
     global no_logs
-    if e.errno == errno.ENOMEM:
+    if e.errno == errno.ENOSPC:
         print("No space left on device to create logs!")
         no_logs = True
     elif e.errno == errno.EACCES:
