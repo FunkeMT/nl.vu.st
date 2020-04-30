@@ -2,6 +2,7 @@ import argv_parser, entity, processor, output_parser, logger
 import sys
 from typing import List
 import time
+import signal
 
 MEASUREMENT_INTERVAL_IN_MS = 1000
 MILLISECONDS_IN_SECOND = 1000
@@ -39,6 +40,11 @@ def print_help():
     print(
         "LIFE_THREATENING: A reading that is of interest to medical personnel because it can have severe effects on the chance of survival of the patient."
     )
+
+
+def signal_handler(sig, frame):  # pragma: no mutate
+    print_help()
+    sys.exit(1)
 
 
 def main(argv: List[str]):
@@ -89,4 +95,5 @@ def main(argv: List[str]):
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal_handler)
     main(sys.argv)
