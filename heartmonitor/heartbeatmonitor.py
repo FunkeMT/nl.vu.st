@@ -23,9 +23,12 @@ def print_help():
     """
     Print help message.
     """
-    print("Usage: heartbeatmonitor.py [options] file")
+    print("Usage: HB-Sim2020 [options]")
     print("Options:")
-    print("\t--path")
+    print("\t--path <file>")
+    print(
+        "Where file is a CSV file containing the headers oxygen, pulse, blood_pressure_systolic, blood_pressure_diastolic in any order."
+    )
     print("")
     print(
         "The system will generate a status for each measurement, these statuses should be interpreted as follows:"

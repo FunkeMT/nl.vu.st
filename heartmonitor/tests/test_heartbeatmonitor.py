@@ -9,30 +9,34 @@ def test_help(capsys):
     heartbeatmonitor.print_help()
     captured = capsys.readouterr()
     lines = captured.out.split("\n")
-    assert "Usage: heartbeatmonitor.py [options] file" == lines[0]
+    assert "Usage: HB-Sim2020 [options]" == lines[0]
     assert "Options:" == lines[1]
-    assert "\t--path" == lines[2]
-    assert "" == lines[3]
+    assert "\t--path <file>" == lines[2]
+    assert (
+        "Where file is a CSV file containing the headers oxygen, pulse, blood_pressure_systolic, blood_pressure_diastolic in any order."
+        == lines[3]
+    )
+    assert "" == lines[4]
     assert (
         "The system will generate a status for each measurement, these statuses should be interpreted as follows:"
-        == lines[4]
+        == lines[5]
     )
-    assert "OK:               A reading that is not considered dangerous." == lines[5]
+    assert "OK:               A reading that is not considered dangerous." == lines[6]
     assert (
         "MISSING:          A reading that is not considered a valid reading."
-        == lines[6]
-    )
-    assert (
-        "MINOR:            A reading that is of interest to medical personnel but cannot be considered a threat yet."
         == lines[7]
     )
     assert (
-        "MAJOR:            A reading that is of interest to medical personnel and has to be considered a threat."
+        "MINOR:            A reading that is of interest to medical personnel but cannot be considered a threat yet."
         == lines[8]
     )
     assert (
-        "LIFE_THREATENING: A reading that is of interest to medical personnel because it can have severe effects on the chance of survival of the patient."
+        "MAJOR:            A reading that is of interest to medical personnel and has to be considered a threat."
         == lines[9]
+    )
+    assert (
+        "LIFE_THREATENING: A reading that is of interest to medical personnel because it can have severe effects on the chance of survival of the patient."
+        == lines[10]
     )
 
 
