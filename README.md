@@ -9,7 +9,8 @@ The main purpose and focus of this project is the investigation and development 
 ## Software Requirements Specification (SRS)
 The SRS follows the IEEE Std 830-1989 guideline.
 
-[Software Requirements Specification](https://github.com/FunkeMT/nl.vu.st/blob/master/docs/srs/main.pdf)
+> - Document (LaTeX): [Software Requirements Specification](https://github.com/FunkeMT/nl.vu.st/blob/master/docs/srs/)
+> - Document (PDF): [Software Requirements Specification](https://github.com/FunkeMT/nl.vu.st/blob/master/docs/srs/main.pdf)
 
 ## Testing
 The test phase is divided into two phases, namely (a) black box tests and (b) white box tests. The black-box tests are carried out by another study group in order to achieve an actual black-box test. However, the two phases consist of:
@@ -24,7 +25,8 @@ The test phase is divided into two phases, namely (a) black box tests and (b) wh
 - Decision Table Testing
 
 ### White-Box Testing
-[Test Plan](https://github.com/FunkeMT/nl.vu.st/blob/master/docs/test-plan/main.pdf)
+> - Document (LaTeX): [Test Plan](https://github.com/FunkeMT/nl.vu.st/blob/master/docs/test-plan/)
+> - Document (PDF): [Test Plan](https://github.com/FunkeMT/nl.vu.st/blob/master/docs/test-plan/main.pdf)
 
 - Test-Driven Development
 - Code Review
